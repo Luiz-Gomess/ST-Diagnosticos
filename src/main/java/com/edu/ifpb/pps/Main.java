@@ -1,42 +1,63 @@
 package com.edu.ifpb.pps;
 
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.PriorityQueue;
+
+import org.modelmapper.ModelMapper;
+
+import com.edu.ifpb.pps.enums.Prioridade;
 import com.edu.ifpb.pps.exames.Exame;
-import com.edu.ifpb.pps.exames.Hemograma;
-import com.edu.ifpb.pps.exames.Ultrassonografia;
-import com.edu.ifpb.pps.gerador.GeradorHTML;
-import com.edu.ifpb.pps.gerador.GeradorPDF;
-import com.edu.ifpb.pps.gerador.GeradorTXT;
+import com.edu.ifpb.pps.factory.ExameFactory;
+import com.edu.ifpb.pps.geradorDeLaudo.impl.GeradorHTML;
+import com.edu.ifpb.pps.geradorDeLaudo.impl.GeradorPDF;
+import com.edu.ifpb.pps.modelos.Medico;
+import com.edu.ifpb.pps.modelos.Paciente;
+
+
 
 public class Main {
     public static void main(String[] args) {
-        Exame ultrassonografia = new Ultrassonografia();
 
-        ultrassonografia.medico = new Medico("Dr. Luizinho", "1234556");
-        ultrassonografia.gerador = new GeradorHTML();
+        PriorityQueue<Exame> fila = new PriorityQueue<>(Comparator.comparing(Exame::getPrioridade));
+
+        Paciente p1 = new Paciente("Luiz", "fernando.albuquerque@academico.ifpb.edu.br","83987999851");
+        Paciente p2 = new Paciente("Luiz Fernando", "fernando.albuquerque@academico.ifpb.edu.br","83987999851");
+        Paciente p3 = new Paciente("Joãozinho", "fernando.albuquerque@academico.ifpb.edu.br","83987999851");
+        Medico m1 = new Medico("Dr. Medico", "1234");
+
+        Exame exame;
+        ModelMapper mapper = new ModelMapper();
+
+        Map<String, Object> dadosExame= new HashMap<>();
+        dadosExame.put("nomeMedicoSolicitante", "Medico Solicitante");
+        dadosExame.put("medico", m1);
+        dadosExame.put("paciente", p1);
+        dadosExame.put("preco", 100.0);
+
+        exame = ExameFactory.create("ultrassonografia");
+        exame = mapper.map(dadosExame, exame.getClass());
         
-        System.out.println();
-        System.out.println(ultrassonografia.gerarLaudo("Corpo da Ultrassonografia"));
-        System.out.println();
+        exame.setPrioridade(Prioridade.POUCO_URGENTE);
+        exame.setGerador(new GeradorHTML());
 
-        Exame hemograma = new Hemograma();
+        fila.add(exame);
 
-        hemograma.medico = new Medico("Dr. Luizinho", "1234556");
-        hemograma.gerador = new GeradorHTML();
+        exame = ExameFactory.create("hemograma");
+        exame = mapper.map(dadosExame, exame.getClass());
+
+        exame.setGerador(new GeradorPDF());
+        exame.setPrioridade(Prioridade.URGENTE);
+
+        fila.add(exame);
         
-        System.out.println();
-        System.out.println(hemograma.gerarLaudo("Corpo da Ultrassonografia"));
-        System.out.println();
+        System.out.println(fila.poll().gerarLaudo("Laudo do exame urgente"));
+        System.out.println(fila.poll().gerarLaudo("Laudo do exame pouco urgente"));
 
-        hemograma.gerador = new GeradorPDF();
         
-        System.out.println();
-        System.out.println(hemograma.gerarLaudo("Corpo da Ultrassonografia"));
-        System.out.println();
+        
+        
 
-        hemograma.gerador = new GeradorTXT();
-        
-        System.out.println();
-        System.out.println(hemograma.gerarLaudo("Corpo da Ultrassonografia"));
-        System.out.println();
     }
 }

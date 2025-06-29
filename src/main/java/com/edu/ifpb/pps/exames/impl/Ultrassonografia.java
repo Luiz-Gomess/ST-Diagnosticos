@@ -1,4 +1,6 @@
-package com.edu.ifpb.pps.exames;
+package com.edu.ifpb.pps.exames.impl;
+
+import com.edu.ifpb.pps.exames.Exame;
 
 public class Ultrassonografia extends Exame{
 

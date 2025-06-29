@@ -13,4 +13,21 @@
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
+
+
+	<dependencies>
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>3.2.0</version>
+        </dependency>
+	
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.38</version>
+		</dependency>
+
+	</dependencies>
 </project>

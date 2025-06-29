@@ -1,4 +1,4 @@
-package com.edu.ifpb.pps.gerador;
+package com.edu.ifpb.pps.geradorDeLaudo;
 
 public interface GeradorDeLaudo{
     

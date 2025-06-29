@@ -1,4 +1,6 @@
-package com.edu.ifpb.pps.gerador;
+package com.edu.ifpb.pps.geradorDeLaudo.impl;
+
+import com.edu.ifpb.pps.geradorDeLaudo.GeradorDeLaudo;
 
 public class GeradorHTML implements GeradorDeLaudo{
 

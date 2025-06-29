@@ -1,10 +1,12 @@
-package com.edu.ifpb.pps.gerador;
+package com.edu.ifpb.pps.geradorDeLaudo.impl;
 
-public class GeradorPDF implements GeradorDeLaudo {
+import com.edu.ifpb.pps.geradorDeLaudo.GeradorDeLaudo;
+
+public class GeradorTXT implements GeradorDeLaudo {
 
     @Override
     public String gerar(String cabecalho, String corpo, String rodape) {
-        return "GERANDO LAUDO EM PDF: \n" +
+        return "GERANDO LAUDO EM TXT: \n" +
                "Cabecalho: " + cabecalho + "\n" +
                "Corpo: " + corpo + "\n" +
                "Rodape: " + rodape;
