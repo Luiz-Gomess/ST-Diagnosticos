@@ -1,0 +1,25 @@
+<!DOCTYPE html >
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${titulo}"></title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h1 th:text="${titulo}"></h1>
+    <p th:text="${descricao}"></p>
+
+    <ul>
+        <li th:each="linha : ${listaItems}">
+            <span th:text="${linha}"></span>
+        </li>
+    </ul>
+
+    <div th:if="${imagens}">
+        <div th:each="imagem : ${imagens}">
+            <img th:src="${imagem.src}" th:alt="${imagem.alt}">
+        </div>
+    </div>
+</body>
+</html>
