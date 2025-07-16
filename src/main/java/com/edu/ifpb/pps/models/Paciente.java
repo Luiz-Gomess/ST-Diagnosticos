@@ -25,7 +25,7 @@ public class Paciente {
     private LocalDate dataNasc;
     private List<MeiosNotificacao> notificadores = new ArrayList<>();
     
-    public Paciente(Integer id, String nome, String email, String telefone, LocalDate dataNasc) {
+    public Paciente(Integer id, String cpf, String nome, Genero genero, String email, String telefone, LocalDate dataNasc) {
         this.id = id;
         this.nome = nome;
         this.email = email;
