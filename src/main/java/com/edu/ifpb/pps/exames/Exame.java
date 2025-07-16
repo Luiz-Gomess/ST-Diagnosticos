@@ -1,36 +1,41 @@
 package com.edu.ifpb.pps.exames;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
-import java.util.Map;
-
-import com.edu.ifpb.pps.exames.impl.Hemograma;
-import com.edu.ifpb.pps.laudos.GeradorDeLaudo;
-import com.edu.ifpb.pps.laudos.impl.GeradorHTML;
-import com.edu.ifpb.pps.models.CorpoExame;
+import com.edu.ifpb.pps.laudos.visitor.VisitorFormatter;
+import com.edu.ifpb.pps.models.Medico;
+import com.edu.ifpb.pps.models.Paciente;
 
 import lombok.Data;
 
 @Data
 public abstract class Exame {
+
     private Integer id;
+    private String nomePaciente;
     private String medicoSolicitante;
+    private Medico medicoLaudista;
     private String localColeta;
     private String convenio;
-    protected GeradorDeLaudo gerador;
+    private String dataNascimento;
+    private Integer idade;
+    private LocalDate dataExame;
+    private List<String> observacoes = new ArrayList<>();
 
-     public Exame(GeradorDeLaudo gerador) {
-        this.gerador = gerador;
+    public Exame() {}
+
+    public Exame(Paciente paciente, Medico medicoSolicitante, Medico medicoLaudista, String localColeta, String convenio){
+        this.nomePaciente = paciente.getNome();
+        this.dataNascimento = paciente.getDataNasc().toString();
+        this.idade = paciente.getIdade();
+        this.medicoSolicitante = medicoSolicitante.getNome();
+        this.medicoLaudista = medicoLaudista;
+        this.localColeta = localColeta;
+        this.convenio = convenio;
+        this.dataExame = LocalDate.now();
     }
 
-    public abstract CorpoExame getDescricaoExame();
-
-    public String gerarLaudo() {
-        return gerador.gerarLaudo(this);
-    }
-
-    public static void main(String[] args) {
-        Exame exame = new Hemograma(new GeradorHTML(), 13, 566, 6000);
-        System.out.println(exame.gerarLaudo());
-    }
-
+    public abstract void gerarLaudo(VisitorFormatter visitor);
 }

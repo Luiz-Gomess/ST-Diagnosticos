@@ -1,8 +1,5 @@
 package com.edu.ifpb.pps.exames.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.edu.ifpb.pps.exames.Exame;
 import com.edu.ifpb.pps.laudos.visitor.VisitorFormatter;
 import com.edu.ifpb.pps.models.Medico;
@@ -13,14 +10,13 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class Ressonancia extends Exame{
+public class Ultrassonografia extends Exame{
 
-    private String regiaoCorpo;
-    private String conclusaoLaudo;
-    private List<String> imagens = new ArrayList<>(); 
-    private boolean contrasteUsado;
+    private String orgaoAvaliado;
+    private String laudoDescritivo;
+    private String caminhoImagem;
 
-    public Ressonancia(Paciente paciente, Medico medicoSolicitante, Medico medicoLaudista, String localColeta,String convenio) {
+    public Ultrassonografia(Paciente paciente, Medico medicoSolicitante, Medico medicoLaudista, String localColeta,String convenio) {
         super(paciente, medicoSolicitante, medicoLaudista, localColeta, convenio);
     }
 
@@ -28,5 +24,5 @@ public class Ressonancia extends Exame{
     public void gerarLaudo(VisitorFormatter visitor) {
         visitor.gerarLaudo(this);  // Aqui é o dispatch para visit(Hemograma)
     }
-
+    
 }

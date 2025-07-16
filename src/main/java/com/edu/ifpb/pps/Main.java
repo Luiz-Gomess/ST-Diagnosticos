@@ -5,8 +5,8 @@ import java.util.List;
 
 import com.edu.ifpb.pps.enums.Genero;
 import com.edu.ifpb.pps.loadData.CSVDataLoader;
-import com.edu.ifpb.pps.loadData.MedicoMappingStrategy;
-import com.edu.ifpb.pps.loadData.PacienteMappingStrategy;
+import com.edu.ifpb.pps.loadData.impl.MedicoMappingStrategy;
+import com.edu.ifpb.pps.loadData.impl.PacienteMappingStrategy;
 import com.edu.ifpb.pps.models.Medico;
 import com.edu.ifpb.pps.models.Paciente;
 
