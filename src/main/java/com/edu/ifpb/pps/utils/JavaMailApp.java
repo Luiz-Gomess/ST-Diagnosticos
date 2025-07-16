@@ -16,7 +16,7 @@ public abstract class JavaMailApp {
 
     protected static Session session;
     // private static final String REMETENTE = "lfernandoagomes@gmail.com";
-    private static final String REMETENTE = "lfernandoagomes@gsdsdmail.com";
+    private static final String REMETENTE = "lfernandoagomes@gmail.com";
     private static final String SENHA = "ubfz sfew yetc oqnt";
     
     static {

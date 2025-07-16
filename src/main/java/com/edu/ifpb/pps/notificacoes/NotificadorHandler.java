@@ -1,11 +1,13 @@
 package com.edu.ifpb.pps.notificacoes;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
+import com.edu.ifpb.pps.enums.Genero;
 import com.edu.ifpb.pps.enums.MeiosNotificacao;
 import com.edu.ifpb.pps.models.Paciente;
 import com.edu.ifpb.pps.notificacoes.impl.EnvioEmail;
-import com.edu.ifpb.pps.notificacoes.impl.EnvioWhatsApp;
+import com.edu.ifpb.pps.notificacoes.impl.EnvioTelegram;
 
 public abstract class NotificadorHandler {
 
@@ -27,11 +29,11 @@ public abstract class NotificadorHandler {
     // Teste
     public static void main(String[] args) {
         NotificadorHandler emailNotificacao = new EnvioEmail();
-        emailNotificacao.anexarProximo(new EnvioWhatsApp());
+        emailNotificacao.anexarProximo(new EnvioTelegram());
 
-        Paciente paciente = new Paciente(1, "Luiz", "fernando.albuquerque@academico.ifpb.edu.br", "123456789", Date.valueOf("2005-06-08").toLocalDate());
-        paciente.addNotificador(MeiosNotificacao.WHATSAPP);
-        paciente.addNotificador(MeiosNotificacao.EMAIL);
+        Paciente paciente = new Paciente(1, "12334", "Luiz", Genero.MASCULINO, "lf@email.com", "987999851", LocalDate.of(2005,6,8) );
+        paciente.addNotificador(MeiosNotificacao.TELEGRAM);
+        // paciente.addNotificador(MeiosNotificacao.EMAIL);
 
         emailNotificacao.notificar(paciente, "Laudo emitido", "Bom dia,\n\nSeu laudo foi emitido e está disponível no sistema.");
     }
