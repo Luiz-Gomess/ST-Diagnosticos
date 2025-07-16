@@ -19,6 +19,7 @@
     <div th:if="${imagens}">
         <div th:each="imagem : ${imagens}">
             <img th:src="${imagem.src}" th:alt="${imagem.alt}">
+            <p th:text="${imagem.alt}"></p>
         </div>
     </div>
 </body>
