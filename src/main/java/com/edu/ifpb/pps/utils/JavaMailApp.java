@@ -2,6 +2,8 @@ package com.edu.ifpb.pps.utils;
 
 import java.util.Properties;
 
+import com.edu.ifpb.pps.Configuracoes;
+
 import jakarta.mail.Address;
 import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
@@ -16,8 +18,8 @@ public abstract class JavaMailApp {
 
     protected static Session session;
     // private static final String REMETENTE = "lfernandoagomes@gmail.com";
-    private static final String REMETENTE = "lfernandoagomes@gmail.com";
-    private static final String SENHA = "ubfz sfew yetc oqnt";
+    private static final String REMETENTE = Configuracoes.getEmailRemetente();
+    private static final String SENHA = Configuracoes.getSenhaEmail();
     
     static {
         Properties props = new Properties();

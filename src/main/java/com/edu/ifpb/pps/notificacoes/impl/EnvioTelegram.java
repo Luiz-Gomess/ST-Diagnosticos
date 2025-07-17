@@ -8,6 +8,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 
+import com.edu.ifpb.pps.Configuracoes;
 import com.edu.ifpb.pps.enums.MeiosNotificacao;
 import com.edu.ifpb.pps.models.Paciente;
 import com.edu.ifpb.pps.notificacoes.NotificadorHandler;
@@ -15,8 +16,8 @@ import com.edu.ifpb.pps.notificacoes.NotificadorHandler;
 public class EnvioTelegram extends NotificadorHandler{
 
     private static final String TELEGRAM_API_URL = "https://api.telegram.org/bot";
-    private final String botToken = "7690378744:AAEe5Q8I04mfcK9iNL7BIlESIM2rn7aLROg";
-    private String chatId = "7734103744";
+    private final String botToken = Configuracoes.getTelegramBotToken();
+    private String chatId = Configuracoes.getTelegramChatId();
     private final HttpClient httpClient = HttpClient.newHttpClient();
 
 

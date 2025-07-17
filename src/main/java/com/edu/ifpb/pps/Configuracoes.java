@@ -14,19 +14,11 @@ public class Configuracoes {
         return dotenv.get("TELEGRAM_CHAT_ID");
     }
 
-    public static String getDbUrl() {
-        return dotenv.get("DB_URL");
+    public static String getEmailRemetente() {
+        return dotenv.get("REMETENTE_EMAIL");
     }
 
-    public static String getDbUser() {
-        return dotenv.get("DB_USER");
-    }
-
-    public static String getDbPassword() {
-        return dotenv.get("DB_PASSWORD");
-    }
-    
-    public static String getApiUrl() {
-        return dotenv.get("API_URL");
+    public static String getSenhaEmail() {
+        return dotenv.get("SENHA_EMAIL");
     }
 }
