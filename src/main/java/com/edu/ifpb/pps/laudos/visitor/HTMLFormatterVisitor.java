@@ -1,119 +1,100 @@
 package com.edu.ifpb.pps.laudos.visitor;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.time.LocalDate;
+import java.util.List;
+
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 import com.edu.ifpb.pps.exames.Exame;
 import com.edu.ifpb.pps.exames.impl.Hemograma;
 import com.edu.ifpb.pps.exames.impl.Ressonancia;
 import com.edu.ifpb.pps.exames.impl.Ultrassonografia;
+import com.edu.ifpb.pps.models.Medico;
+import com.edu.ifpb.pps.models.Paciente;
+import com.edu.ifpb.pps.utils.Utils;
+
+import nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect;
 
 public class HTMLFormatterVisitor implements VisitorFormatter {
 
-    @Override
-    public Object gerarCabecalho(Exame exame) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("<html>\n");
-        sb.append("<head>\n");
-        sb.append("<title>Laudo de " + exame.getClass().getSimpleName() + "</title>\n");
-        sb.append("</head>\n");
-        sb.append("<body>\n");
-        sb.append("<header>\n");
-        sb.append("<p> RA: " + exame.getId() + "</p>\n");
-        sb.append("<p> Sr(a): " + exame.getNomePaciente() + "</p>\n");
-        sb.append("<p> Dr(a): " + exame.getMedicoSolicitante() + "</p>\n");
-        sb.append("<p> Coleta: " + exame.getLocalColeta() + "</p>\n");
-        sb.append("<p> Convenio: " + exame.getConvenio() + "</p>\n");
-        sb.append("<p> Data de Nascimento: " + exame.getDataNascimento() + "</p>\n");
-        sb.append("<p> Idade: " + exame.getIdade() + "</p>\n");
-        sb.append("<p> Data de Atendimento: " + exame.getDataExame() + "</p>\n");
-        sb.append("</header>\n");
-        sb.append("<hr>\n");
-        sb.append("<main>\n");
+    private final TemplateEngine templateEngine;
 
-        return sb.toString();
+    public HTMLFormatterVisitor() {
+
+            ClassLoaderTemplateResolver resolver = new ClassLoaderTemplateResolver();
+            
+            resolver.setPrefix("templates/");
+            resolver.setSuffix(".html");
+            resolver.setCharacterEncoding("UTF-8");
+
+            this.templateEngine = new TemplateEngine();
+            this.templateEngine.setTemplateResolver(resolver);
+
+            this.templateEngine.addDialect(new LayoutDialect());
+
     }
 
-    @Override
-    public Object gerarRodape(Exame exame) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("</main>\n");
-        sb.append("<footer>\n");
-        sb.append("<p> " + exame.getMedicoLaudista().getNome() + "</p>\n");
-        sb.append("<p> " + exame.getMedicoLaudista().getCrm() + "</p>\n");
-        sb.append("</footer>\n");
-        sb.append("</body>\n");
-        sb.append("</html>");
+    private void createHTML(Path caminho, String conteudo) {
+        try {
+            // Escreve todo o conteúdo da string HTML no arquivo.
+            // Se o arquivo já existir, ele será sobrescrito.
+            Files.writeString(caminho, conteudo);
 
-        return sb.toString();
-    }
+            System.out.println("-------------------------------------------------");
+            System.out.println("✅ Laudo gerado com sucesso!");
+            System.out.println("Arquivo salvo em: " + caminho.toAbsolutePath());
+            System.out.println("-------------------------------------------------");
 
-
-    @Override
-    public void gerarLaudo(Hemograma hemograma) {
-
-
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("<h1> Hemograma </h1>\n");
-        sb.append("<p> Hemoglobina: " + hemograma.getHemoglobina() + "</p>\n");
-        sb.append("<p> Hematócrito: " + hemograma.getHematocrito() + "</p>\n");
-        sb.append("<p> Leucócitos: " + hemograma.getLeucocitos() + "</p>\n");
-        sb.append("<p> Plaquetas: " + hemograma.getPlaquetas() + "</p>\n");
-        sb.append("<p> V.M.C.: " + hemograma.getVolumeCorpuscularMedio() + "</p>\n");
-
-        String cabecalho = (String) gerarCabecalho(hemograma);
-        String corpo = sb.toString();
-        String rodape = (String) gerarRodape(hemograma);
-
-        String html = cabecalho + corpo + rodape;
-
-        try (FileOutputStream fos = new FileOutputStream("exame.html")) {
-            fos.write(html.getBytes());
-            System.out.println("File created and content written.");
         } catch (IOException e) {
-            System.out.println("An error occurred while writing to the file.");
+            System.err.println("❌ Erro ao salvar o arquivo HTML.");
             e.printStackTrace();
         }
     }
 
     @Override
+    public void gerarLaudo(Hemograma hemograma) {
+
+    }
+
+    @Override
     public void gerarLaudo(Ressonancia ressonancia) {
 
-        gerarCabecalho(ressonancia);
+        Context context = new Context();
+        List<String> imagensEmBase64 = Utils.converterImagemParaBase64(ressonancia.getImagens());
 
-        StringBuilder sb = new StringBuilder();
+        context.setVariable("exame", ressonancia);
+        context.setVariable("titulo", "Laudo de Ressonância Magnética");
+        context.setVariable("dataGeracao", new java.util.Date());
+        
+        // Envia a LISTA DE STRINGS BASE64 para o template, não mais a lista de caminhos
+        context.setVariable("imagensBase64", imagensEmBase64); 
 
-        sb.append("<h1> Ressonancia </h1>\n");
-        sb.append("<p> Região do Corpo: " + ressonancia.getRegiaoCorpo() + "</p>\n");
-        sb.append("<p> Conclusão do Laudo: " + ressonancia.getConclusaoLaudo() + "</p>\n");
-
-        for(String camimhoImagem : ressonancia.getImagens()) {
-            sb.append("<img src=\"" + camimhoImagem + "\" alt=\"Imagem de Ressonancia\" />\n");
-        }
-        sb.append("<p> Contraste Usado: " + (ressonancia.isContrasteUsado() ? "Sim" : "Não") + "</p>\n");
-
-        System.out.println(sb.toString());
-
-        gerarRodape(ressonancia);
+        String conteudo = templateEngine.process("laudos/ressonancia.html", context);
+        this.createHTML(Path.of("laudo_ressonancia.html"), conteudo);
 
     }
 
     @Override
     public void gerarLaudo(Ultrassonografia ultrassonografia) {
 
-        gerarCabecalho(ultrassonografia);
-
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("<h1> Ultrassonografia </h1>\n");
-        sb.append("<p> Órgão Avaliado: " + ultrassonografia.getOrgaoAvaliado() + "</p>\n");
-        sb.append("<p> Laudo Descritivo: " + ultrassonografia.getLaudoDescritivo() + "</p>\n");
-        sb.append("<img src=\"" + ultrassonografia.getCaminhoImagem() + "\" alt=\"Imagem de Ultrassonografia\" />\n");
-
-        System.out.println(sb.toString());
-
-        gerarRodape(ultrassonografia);
     }
     
+    public static void main(String[] args) {
+        Paciente paciente = new Paciente(1, "7235", "Luiz Fernando", null, "lfernandoagomes@gmail.com", "83987999851", LocalDate.of(2005, 06, 8));
+        Medico solicitante = new Medico("João da Silva", "7653");
+        Medico laudista = new Medico("João Laudista", "12345");
+
+        Exame ressonancia = new Ressonancia(paciente, solicitante, laudista, "TAMBAÚ", "UNIMED", "JOELHO", "Ressonância no joelho", 3.0, List.of(
+            "/home/luiz/pps/projeto/src/main/resources/imagens/banana.jpg",
+            "/home/luiz/pps/projeto/src/main/resources/imagens/maca.jpg"
+        ), false);
+
+        HTMLFormatterVisitor visitor = new HTMLFormatterVisitor();
+        ressonancia.gerarLaudo(visitor);
+    }
 }

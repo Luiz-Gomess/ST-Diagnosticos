@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h4 class="mb-0 p-4">ST Diagnósticos</h4>
+            <p class="text-muted ps-4">Sistema de Controle de Exames Médicos</p>
+        </div>
+    </div>
+    <hr>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><strong>Id Exame:</strong> <span th:text="${exame.id}">1</span></li>
+        
+        <li class="list-group-item"><strong>Paciente:</strong> <span th:text="${exame.paciente.nome}">Nome do Paciente</span></li>
+        
+        <li class="list-group-item"><strong>Dr(a):</strong> <span th:text="${exame.medicoSolicitante.nome}">Nome do Médico</span></li>
+        
+        <li class="list-group-item"><strong>Coleta:</strong> <span th:text="${exame.localColeta}">Local Coleta</span></li>
+
+        <li class="list-group-item"><strong>Convênio:</strong> <span th:text="${exame.convenio}">Convenio</span></li>
+
+        <li class="list-group-item"><strong>D.N.:</strong> <span th:text="${exame.paciente.dataNasc}">D.N.</span></li>
+    </ul>
+</div>
+</body>
+</html>

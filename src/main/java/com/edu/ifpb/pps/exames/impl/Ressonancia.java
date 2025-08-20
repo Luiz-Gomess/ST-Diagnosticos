@@ -16,17 +16,24 @@ import lombok.EqualsAndHashCode;
 public class Ressonancia extends Exame{
 
     private String regiaoCorpo;
-    private String conclusaoLaudo;
+    private String descricao;
     private List<String> imagens = new ArrayList<>(); 
-    private boolean contrasteUsado;
+    private Double contrasteUsado;
+    private boolean possuiImplantes;
 
-    public Ressonancia(Paciente paciente, Medico medicoSolicitante, Medico medicoLaudista, String localColeta,String convenio) {
+    public Ressonancia(Paciente paciente, Medico medicoSolicitante, Medico medicoLaudista, String localColeta,String convenio, String regiaoCorpo, String descricao, Double contrasteUsado, List<String> caminhoImagens, boolean possuiImplantes) {
+
         super(paciente, medicoSolicitante, medicoLaudista, localColeta, convenio);
+        this.regiaoCorpo = regiaoCorpo;
+        this.descricao = descricao;
+        this.contrasteUsado = contrasteUsado;
+        this.imagens = caminhoImagens;
+        this.possuiImplantes = possuiImplantes;
     }
 
     @Override
     public void gerarLaudo(VisitorFormatter visitor) {
-        visitor.gerarLaudo(this);  // Aqui é o dispatch para visit(Hemograma)
+        visitor.gerarLaudo(this);  
     }
 
 }

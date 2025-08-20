@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="d-flex justify-content-between p-4" th:fragment="footer">
+    <span>
+        <strong>Gerado em:</strong> 
+        <span th:text="${#dates.format(dataGeracao, 'dd/MM/yyyy HH:mm')}">Data e Hora</span>
+    </span>
+    <span>
+        <strong>Dr(a):</strong> <span th:text="${exame.medicoLaudista.nome}">Nome do Responsável</span>
+        <strong>CRM:</strong> <span th:text="${exame.medicoLaudista.crm}">CRM</span>
+    </span>
+</div>
+</body>
+</html>
