@@ -4,5 +4,5 @@ import com.edu.ifpb.pps.models.Paciente;
 
 public interface INotificador {
     
-    void notificar(Paciente paciente);
+    void notificar(Paciente paciente, String caminhoDoArquivo);
 }

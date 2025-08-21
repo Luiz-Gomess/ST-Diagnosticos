@@ -10,7 +10,7 @@ public class NotificadorSistema extends NotificadorBase{
     }
 
     @Override
-    public void notificar (Paciente paciente) {
+    public void notificar (Paciente paciente, String caminhoDoArquivo) {
         System.out.println(String.format("""
         --------------------------------------------------
         Olá %s,

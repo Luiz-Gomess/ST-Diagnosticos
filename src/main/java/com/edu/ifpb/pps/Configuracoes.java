@@ -19,6 +19,6 @@ public class Configuracoes {
     }
 
     public static String getSenhaEmail() {
-        return dotenv.get("SENHA_EMAIL");
+        return dotenv.get("REMETENTE_SENHA");
     }
 }

@@ -11,8 +11,8 @@ public abstract class NotificadorBase implements INotificador{
     }
 
     @Override
-    public void notificar(Paciente paciente) {
-        encapsulado.notificar(paciente);
+    public void notificar(Paciente paciente, String caminhoDoArquivo) {
+        encapsulado.notificar(paciente, caminhoDoArquivo);
     }
     
 }
