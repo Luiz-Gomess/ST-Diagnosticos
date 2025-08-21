@@ -54,6 +54,8 @@ public class NotificadorEmail extends NotificadorBase {
 
     @Override
     public void notificar (Paciente paciente, String caminhoDoArquivo){
+
+        super.notificar(paciente, caminhoDoArquivo);
         try {
             // Inicia a crição do email
             Message message = new MimeMessage(session);

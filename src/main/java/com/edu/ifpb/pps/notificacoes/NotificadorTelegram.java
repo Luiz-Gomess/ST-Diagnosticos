@@ -1,21 +1,16 @@
 package com.edu.ifpb.pps.notificacoes;
 
-import java.net.URI;
-import java.net.URLEncoder;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 
 import com.edu.ifpb.pps.Configuracoes;
 import com.edu.ifpb.pps.models.Paciente;
+import com.edu.ifpb.pps.utils.TelegramService;
 
 public class NotificadorTelegram extends NotificadorBase{
 
     private String destinatarioChatId;
     private String botToken = Configuracoes.getTelegramBotToken();
-    private final String API_URL = "https://api.telegram.org/bot" + botToken + "/sendMessage";
+    private TelegramService service = new TelegramService(botToken);
 
     public NotificadorTelegram(INotificador encapsulado, String destinatarioChatId) {
         super(encapsulado);
@@ -25,6 +20,8 @@ public class NotificadorTelegram extends NotificadorBase{
 
     @Override
     public void notificar(Paciente paciente, String caminhoDoArquivo) {
+
+        super.notificar(paciente, caminhoDoArquivo);
         
         try {
             StringBuilder sb = new StringBuilder();
@@ -32,24 +29,8 @@ public class NotificadorTelegram extends NotificadorBase{
             sb.append("O Laudo do seu exame está disponível!\n");
 
             String mensagem = sb.toString();
-            String textoCodificado = URLEncoder.encode(mensagem, StandardCharsets.UTF_8);
-
-            String urlCompleta = String.format("%s?chat_id=%s&text=%s", API_URL, destinatarioChatId, textoCodificado);
-
-            HttpClient client = HttpClient.newHttpClient();
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(urlCompleta))
-                    .build();
-
-            System.out.println("Enviando notificação para o Telegram...");
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-            if (response.statusCode() == 200) {
-                System.out.println("✅ Notificação enviada com sucesso via Telegram!");
-            } else {
-                System.err.println("❌ Falha ao enviar notificação. Status: " + response.statusCode());
-                System.err.println("Resposta do servidor: " + response.body());
-            }
+            
+            service.enviarDocumento(destinatarioChatId, mensagem, caminhoDoArquivo);
 
         } catch (Exception e) {
             System.err.println("❌ Erro ao construir a requisição para o Telegram.");
@@ -61,8 +42,14 @@ public class NotificadorTelegram extends NotificadorBase{
     public static void main(String[] args) {
         Paciente paciente = new Paciente(1, "7235", "Luiz Fernando", null, "lfernandoagomes@gmail.com", "83987999851", LocalDate.of(2005, 06, 8));
 
-        INotificador email = new NotificadorTelegram(null, Configuracoes.getTelegramChatId());
-        email.notificar(paciente, "/home/luiz/pps/projeto/laudo_ressonancia.txt");
+        INotificador base = 
+        new NotificadorTelegram(
+            new NotificadorEmail(
+                new NotificadorSistema(null)
+                ), Configuracoes.getTelegramChatId()
+        );
+
+        base.notificar(paciente, "/home/luiz/pps/projeto/laudo_ressonancia.txt");
     }
 
 }
