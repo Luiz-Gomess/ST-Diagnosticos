@@ -92,6 +92,8 @@ public class NotificadorEmail extends NotificadorBase {
 
             // Envia
             Transport.send(message);
+
+            System.out.println("✅ Email enviado!");
             
         } catch (MessagingException e) {
             throw new RuntimeException(e);

@@ -11,7 +11,7 @@ public class Configuracoes {
     }
 
     public static String getTelegramChatId() {
-        return dotenv.get("TELEGRAM_CHAT_ID");
+        return dotenv.get("LUIZ_TELEGRAM_ID");
     }
 
     public static String getEmailRemetente() {
