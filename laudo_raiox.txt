@@ -1,0 +1,26 @@
+======================================================================
+                                RAIOX
+======================================================================
+
+Paciente:                 Luiz Fernando
+Dr(a):                    João da Silva
+Coleta:                   Bancários
+Convênio:                 Roseane Doris
+D.N.:                     08/06/2005
+----------------------------------------------------------------------
+ÓRGÃO AVALIADO: PULMÃO
+----------------------------------------------------------------------
+DESCRIÇÃO 
+Raio X do pulmão
+
+IMAGEM DE REFERÊNCIA (caminho):
+
+- /home/luiz/pps/projeto/src/main/resources/imagens/banana.jpg
+
+RADIOLOGISTA 
+João Laudista
+----------------------------------------------------------------------
+Gerado em: 21/08/2025
+Dr(a): João Laudista
+CRM: 12345
+----------------------------------------------------------------------

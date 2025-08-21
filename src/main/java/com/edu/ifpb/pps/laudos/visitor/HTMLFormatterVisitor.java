@@ -13,7 +13,7 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import com.edu.ifpb.pps.exames.Exame;
 import com.edu.ifpb.pps.exames.impl.Hemograma;
 import com.edu.ifpb.pps.exames.impl.Ressonancia;
-import com.edu.ifpb.pps.exames.impl.Ultrassonografia;
+import com.edu.ifpb.pps.exames.impl.RaioX;
 import com.edu.ifpb.pps.models.Medico;
 import com.edu.ifpb.pps.models.Paciente;
 import com.edu.ifpb.pps.utils.Utils;
@@ -80,8 +80,21 @@ public class HTMLFormatterVisitor implements VisitorFormatter {
     }
 
     @Override
-    public void gerarLaudo(Ultrassonografia ultrassonografia) {
+    public void gerarLaudo(RaioX raiox) {
 
+        Context context = new Context();
+        List<String> imagensEmBase64 = Utils.converterImagemParaBase64(List.of(raiox.getCaminhoImagem()));
+
+        context.setVariable("exame", raiox);
+        context.setVariable("titulo", "Laudo de Raio X");
+        context.setVariable("dataGeracao", new java.util.Date());
+        
+        // Envia a LISTA DE STRINGS BASE64 para o template, não mais a lista de caminhos
+        context.setVariable("imagemBase64", imagensEmBase64.get(0)); 
+
+
+        String conteudo = templateEngine.process("laudos/raiox.html", context);
+        this.createHTML(Path.of("laudo_raiox.html"), conteudo);
     }
     
     public static void main(String[] args) {
@@ -96,5 +109,8 @@ public class HTMLFormatterVisitor implements VisitorFormatter {
 
         HTMLFormatterVisitor visitor = new HTMLFormatterVisitor();
         ressonancia.gerarLaudo(visitor);
+
+        Exame raiox = new RaioX(paciente, solicitante, laudista, "Bancários", "Roseane Doris", "PULMÃO", "Raio X do pulmão", "/home/luiz/pps/projeto/src/main/resources/imagens/banana.jpg");
+        raiox.gerarLaudo(visitor);
     }
 }

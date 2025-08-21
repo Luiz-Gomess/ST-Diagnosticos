@@ -10,14 +10,17 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class Ultrassonografia extends Exame{
+public class RaioX extends Exame{
 
     private String orgaoAvaliado;
     private String laudoDescritivo;
     private String caminhoImagem;
 
-    public Ultrassonografia(Paciente paciente, Medico medicoSolicitante, Medico medicoLaudista, String localColeta,String convenio) {
+    public RaioX(Paciente paciente, Medico medicoSolicitante, Medico medicoLaudista, String localColeta,String convenio, String orgaoAvaliado, String laudoDescritivo, String caminho) {
         super(paciente, medicoSolicitante, medicoLaudista, localColeta, convenio);
+        this.orgaoAvaliado = orgaoAvaliado;
+        this.laudoDescritivo = laudoDescritivo;
+        this.caminhoImagem = caminho;
     }
 
     @Override

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<body>
+
+<div layout:fragment="conteudo">
+
+    <div class="d-flex align-items-center mb-4">
+        <i class="bi bi-person-bounding-box h2 me-3 text-primary"></i>
+        <h5 class="card-title mb-0">
+            Laudo de Raio-X: <span class="text-primary" th:text="${exame.orgaoAvaliado}">Órgão Avaliado</span>
+        </h5>
+    </div>
+
+    <h6><strong><i class="bi bi-file-earmark-text"></i> Laudo Descritivo:</strong></h6>
+    <p class="lead" th:text="${exame.laudoDescritivo}">
+        Descrição detalhada dos achados do radiologista, incluindo análise das estruturas,
+        presença de fraturas, lesões ou outras observações pertinentes ao exame.
+    </p>
+
+    <div th:if="${imagemBase64 != null and !imagemBase64.isEmpty()}">
+        <hr class="my-4">
+        <h6><strong><i class="bi bi-image"></i> Imagem de Referência:</strong></h6>
+        
+        <div class="row justify-content-center mt-3">
+            <div class="col-md-8 text-center">
+                <figure class="figure">
+                    <img th:src="'data:image/jpeg;base64,' + ${imagemBase64}" 
+                         class="figure-img img-fluid rounded border shadow-sm" 
+                         alt="Imagem do exame de Raio-X"/>
+                    <figcaption class="figure-caption text-center">Imagem principal do estudo</figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-4">
+
+    <div class="text-end">
+        <p class="mb-0"><em>Laudo emitido conforme análise da imagem adquirida.</em></p>
+        <p class="mt-3 mb-0">_________________________</p>
+        <p class="mb-0" th:text="'Dr(a). ' + ${exame.medicoLaudista.nome}">Dr(a). Nome do Radiologista</p>
+        <p class="text-muted" th:text="'CRM: ' + ${exame.medicoLaudista.crm}">CRM: 12345</p>
+    </div>
+
+</div>
+
+</body>
+</html>
