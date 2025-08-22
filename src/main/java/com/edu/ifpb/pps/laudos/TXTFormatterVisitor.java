@@ -94,7 +94,6 @@ public class TXTFormatterVisitor implements VisitorFormatter {
         sb.append(String.format("%-25s %s\n", "Convênio:", exame.getConvenio()));
         exame.getPaciente().getDataNasc();
         sb.append(String.format("%-25s %s\n", "D.N.:", exame.getPaciente().getDataNasc().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
-        // sb.append(String.format("%-25s %s\n", "D.N.:", exame.getPaciente().getDataNasc()));
         sb.append("-".repeat(70) + "\n");
         
         return sb.toString();
@@ -127,7 +126,7 @@ public class TXTFormatterVisitor implements VisitorFormatter {
         ressonancia.gerarLaudo(formatter);
 
         Exame raiox = new RaioX(paciente, solicitante, laudista, "Bancários", "Roseane Doris", "PULMÃO", "Raio X do pulmão",
-         "/home/luiz/pps/projeto/src/main/resources/imagens/banana.jpg"
+         "/home/luiz/pps/projeto/src/main/resources/imagens/banana.jpg", true
         );
         raiox.gerarLaudo(formatter);
     }

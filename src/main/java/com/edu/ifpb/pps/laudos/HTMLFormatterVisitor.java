@@ -110,7 +110,7 @@ public class HTMLFormatterVisitor implements VisitorFormatter {
         HTMLFormatterVisitor visitor = new HTMLFormatterVisitor();
         ressonancia.gerarLaudo(visitor);
 
-        Exame raiox = new RaioX(paciente, solicitante, laudista, "Bancários", "Roseane Doris", "PULMÃO", "Raio X do pulmão", "/home/luiz/pps/projeto/src/main/resources/imagens/banana.jpg");
+        Exame raiox = new RaioX(paciente, solicitante, laudista, "Bancários", "Roseane Doris", "PULMÃO", "Raio X do pulmão", "/home/luiz/pps/projeto/src/main/resources/imagens/banana.jpg", true);
         raiox.gerarLaudo(visitor);
     }
 }
