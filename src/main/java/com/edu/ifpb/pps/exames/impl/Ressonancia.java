@@ -20,8 +20,20 @@ public class Ressonancia extends Exame{
     private List<String> imagens = new ArrayList<>(); 
     private Double contrasteUsado;
     private boolean possuiImplantes;
+    private boolean assinaturaRadiologista;
 
-    public Ressonancia(Paciente paciente, Medico medicoSolicitante, Medico medicoLaudista, String localColeta,String convenio, String regiaoCorpo, String descricao, Double contrasteUsado, List<String> caminhoImagens, boolean possuiImplantes) {
+    public Ressonancia(
+        Paciente paciente, 
+        Medico medicoSolicitante, 
+        Medico medicoLaudista, 
+        String localColeta,
+        String convenio, 
+        String regiaoCorpo, 
+        String descricao, 
+        Double contrasteUsado, 
+        List<String> caminhoImagens, 
+        boolean possuiImplantes, 
+        boolean assinaturaRadiologista) {
 
         super(paciente, medicoSolicitante, medicoLaudista, localColeta, convenio);
         this.regiaoCorpo = regiaoCorpo;
@@ -29,6 +41,7 @@ public class Ressonancia extends Exame{
         this.contrasteUsado = contrasteUsado;
         this.imagens = caminhoImagens;
         this.possuiImplantes = possuiImplantes;
+        this.assinaturaRadiologista = assinaturaRadiologista;
     }
 
     @Override

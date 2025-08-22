@@ -110,6 +110,7 @@ public class TXTFormatterVisitor implements VisitorFormatter {
         return sb.toString();
     }
 
+    // Teste
     public static void main(String[] args) {
         Paciente paciente = new Paciente(1, "7235", "Luiz Fernando", null, "lfernandoagomes@gmail.com", "83987999851",
             LocalDate.of(2005, 6, 8)
@@ -121,7 +122,7 @@ public class TXTFormatterVisitor implements VisitorFormatter {
         Exame ressonancia = new Ressonancia(paciente, solicitante, laudista, "TAMBAÚ", "UNIMED", "JOELHO", "Ressonância no joelho", 3.0, List.of(
             "/home/luiz/pps/projeto/src/main/resources/imagens/banana.jpg",
             "/home/luiz/pps/projeto/src/main/resources/imagens/maca.jpg"
-        ), false);
+        ), false, true);
 
         ressonancia.gerarLaudo(formatter);
 

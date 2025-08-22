@@ -105,7 +105,7 @@ public class HTMLFormatterVisitor implements VisitorFormatter {
         Exame ressonancia = new Ressonancia(paciente, solicitante, laudista, "TAMBAÚ", "UNIMED", "JOELHO", "Ressonância no joelho", 3.0, List.of(
             "/home/luiz/pps/projeto/src/main/resources/imagens/banana.jpg",
             "/home/luiz/pps/projeto/src/main/resources/imagens/maca.jpg"
-        ), false);
+        ), false, true);
 
         HTMLFormatterVisitor visitor = new HTMLFormatterVisitor();
         ressonancia.gerarLaudo(visitor);

@@ -6,7 +6,7 @@ public class DescricaoRaioxValidador extends ValidadorRaioxHandler{
 
     @Override
     public String validar (RaioX raiox) {
-        if (raiox.getLaudoDescritivo() == null | raiox.getLaudoDescritivo().isEmpty()) {
+        if (raiox.getLaudoDescritivo() == null || raiox.getLaudoDescritivo().isEmpty()) {
             return "Descrição de RaioX não pode estar vazia";
         }
 
