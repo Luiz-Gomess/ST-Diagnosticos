@@ -24,11 +24,8 @@ public class NotificadorTelegram extends NotificadorBase{
         super.notificar(paciente, caminhoDoArquivo);
         
         try {
-            StringBuilder sb = new StringBuilder();
-            sb.append("Olá, ").append(paciente.getNome()).append(" \n\n");
-            sb.append("O Laudo do seu exame está disponível!\n");
 
-            String mensagem = sb.toString();
+            String mensagem = this.getMensagem(paciente.getNome());
             
             service.enviarDocumento(destinatarioChatId, mensagem, caminhoDoArquivo);
 
@@ -42,12 +39,16 @@ public class NotificadorTelegram extends NotificadorBase{
     public static void main(String[] args) {
         Paciente paciente = new Paciente(1, "7235", "Luiz Fernando", null, "lfernandoagomes@gmail.com", "83987999851", LocalDate.of(2005, 06, 8));
 
-        INotificador base = 
-        new NotificadorTelegram(
-            new NotificadorEmail(
-                new NotificadorSistema(null)
-                ), Configuracoes.getTelegramChatId()
-        );
+        // INotificador base = 
+        // new NotificadorTelegram(
+        //     new NotificadorEmail(
+        //         new NotificadorSistema(null)
+        //         ), Configuracoes.getTelegramChatId()
+        // );
+
+        INotificador base = new NotificadorSistema(null);
+        base = new NotificadorEmail(base);
+        base = new NotificadorTelegram(base, Configuracoes.getTelegramChatId());
 
         base.notificar(paciente, "/home/luiz/pps/projeto/laudo_ressonancia.txt");
     }

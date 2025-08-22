@@ -72,13 +72,9 @@ public class NotificadorEmail extends NotificadorBase {
 
             // Define o corpo do email e o arquivo anexado
             BodyPart messageBodyPart = new MimeBodyPart();
-            messageBodyPart.setText(String.format(
-                """
-                Olá %s,
-
-                Seu Laudo Médico foi emitido e já está disponível no sistema.
-                        """
-            , paciente.getNome()));
+            messageBodyPart.setText(
+                this.getMensagem(paciente.getNome())
+            );
 
             MimeBodyPart attachmentBodyPart = new MimeBodyPart();
             DataSource source = new FileDataSource(caminhoDoArquivo);

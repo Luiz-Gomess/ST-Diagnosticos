@@ -16,5 +16,12 @@ public abstract class NotificadorBase implements INotificador{
             encapsulado.notificar(paciente, caminhoDoArquivo);
         }
     }
+
+    protected String getMensagem (String nomePaciente) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Olá Sr(a) ").append(nomePaciente).append(", \n\n");
+        sb.append("O Laudo do seu exame já está disponível! \n");
+        return sb.toString();
+    }
     
 }

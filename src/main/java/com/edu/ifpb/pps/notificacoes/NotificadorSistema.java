@@ -11,14 +11,12 @@ public class NotificadorSistema extends NotificadorBase{
 
     @Override
     public void notificar (Paciente paciente, String caminhoDoArquivo) {
-        System.out.println(String.format("""
-        --------------------------------------------------
-        Olá %s,
-
-        Seu Laudo foi emitido e já está disponível no sistema.
-
-        --------------------------------------------------
-                """, paciente.getNome()));
+        
+        System.out.println("-".repeat(70));
+        System.out.println(
+            this.getMensagem(paciente.getNome())
+            );
+        System.out.println("-".repeat(70));
     }
     
 }
