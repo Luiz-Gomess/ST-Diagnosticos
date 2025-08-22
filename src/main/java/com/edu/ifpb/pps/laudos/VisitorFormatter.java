@@ -1,4 +1,4 @@
-package com.edu.ifpb.pps.laudos.visitor;
+package com.edu.ifpb.pps.laudos;
 
 import com.edu.ifpb.pps.exames.impl.Hemograma;
 import com.edu.ifpb.pps.exames.impl.Ressonancia;

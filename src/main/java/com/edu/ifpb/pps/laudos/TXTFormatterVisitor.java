@@ -1,4 +1,4 @@
-package com.edu.ifpb.pps.laudos.visitor;
+package com.edu.ifpb.pps.laudos;
 
 import java.io.IOException;
 import java.nio.file.Files;

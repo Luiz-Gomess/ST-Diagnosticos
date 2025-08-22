@@ -1,7 +1,7 @@
 package com.edu.ifpb.pps.exames.impl;
 
 import com.edu.ifpb.pps.exames.Exame;
-import com.edu.ifpb.pps.laudos.visitor.VisitorFormatter;
+import com.edu.ifpb.pps.laudos.VisitorFormatter;
 import com.edu.ifpb.pps.models.Medico;
 import com.edu.ifpb.pps.models.Paciente;
 
