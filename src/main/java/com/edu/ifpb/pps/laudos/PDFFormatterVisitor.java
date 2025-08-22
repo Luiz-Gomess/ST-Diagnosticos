@@ -4,7 +4,9 @@ import com.edu.ifpb.pps.exames.impl.Hemograma;
 import com.edu.ifpb.pps.exames.impl.RaioX;
 import com.edu.ifpb.pps.exames.impl.Ressonancia;
 
-public class PDFFormatterVisitor implements VisitorFormatter{
+public class PDFFormatterVisitor extends VisitorFormatter{
+
+    private final String PASTA_DESTINO = getPathDestino("pdf");
 
     @Override
     public void gerarLaudo(Hemograma hemograma) {

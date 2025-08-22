@@ -1,27 +1,26 @@
 ======================================================================
-                             RESSONANCIA
+                                RAIOX
 ======================================================================
 
 Paciente:                 Luiz Fernando
 Dr(a):                    João da Silva
-Coleta:                   TAMBAÚ
-Convênio:                 UNIMED
+Coleta:                   Bancários
+Convênio:                 Roseane Doris
 D.N.:                     08/06/2005
 ----------------------------------------------------------------------
-ÓRGÃO AVALIADO: JOELHO
+ÓRGÃO AVALIADO: PULMÃO
 ----------------------------------------------------------------------
-LAUDO DESCRITIVO:
-Ressonância no joelho
+DESCRIÇÃO 
+Raio X do pulmão
 
-Contraste: 
-3.0 ml
+IMAGEM DE REFERÊNCIA (caminho):
 
-IMAGENS DE REFERÊNCIA (caminhos):
 - /home/luiz/pps/projeto/src/main/resources/imagens/banana.jpg
-- /home/luiz/pps/projeto/src/main/resources/imagens/maca.jpg
 
+RADIOLOGISTA 
+João Laudista
 ----------------------------------------------------------------------
-Gerado em: 21/08/2025
+Gerado em: 22/08/2025
 Dr(a): João Laudista
 CRM: 12345
 ----------------------------------------------------------------------

@@ -4,9 +4,13 @@ import com.edu.ifpb.pps.exames.impl.Hemograma;
 import com.edu.ifpb.pps.exames.impl.Ressonancia;
 import com.edu.ifpb.pps.exames.impl.RaioX;
 
-public interface VisitorFormatter {
+public abstract class VisitorFormatter {
+
+    public String getPathDestino(String formato) {
+        return "./src/main/resources/templates/laudos_criados/" + formato + "/";
+    }
     
-    void gerarLaudo(Hemograma hemograma);
-    void gerarLaudo(Ressonancia ressonancia);
-    void gerarLaudo(RaioX ultrassonografia);
+    public abstract void gerarLaudo(Hemograma hemograma);
+    public abstract void gerarLaudo(Ressonancia ressonancia);
+    public abstract void gerarLaudo(RaioX ultrassonografia);
 }

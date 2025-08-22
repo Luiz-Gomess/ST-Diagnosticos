@@ -14,13 +14,16 @@ import com.edu.ifpb.pps.exames.impl.Ressonancia;
 import com.edu.ifpb.pps.models.Medico;
 import com.edu.ifpb.pps.models.Paciente;
 
-public class TXTFormatterVisitor implements VisitorFormatter {
+public class TXTFormatterVisitor extends VisitorFormatter {
 
-    // private StringBuilder sb = new StringBuilder();
+    private final String PASTA_DESTINO = getPathDestino("txt");
+
 
     private void createTXT(String conteudo, String tipoExame) {
+
+        // Cria o arquivo TXT com o conteúdo gerado 
         try {
-            Path caminhoSaida = Path.of(String.format("laudo_%s.txt", tipoExame));
+            Path caminhoSaida = Path.of(String.format(PASTA_DESTINO + "laudo_%s.txt", tipoExame));
             Files.writeString(caminhoSaida, conteudo);
             System.out.println("✅ Laudo TXT gerado com sucesso!");
             System.out.println("Arquivo salvo em: " + caminhoSaida.toAbsolutePath());
@@ -31,15 +34,17 @@ public class TXTFormatterVisitor implements VisitorFormatter {
 
     @Override
     public void gerarLaudo(Hemograma hemograma) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'gerarLaudo'");
+
     }
 
     @Override
     public void gerarLaudo(Ressonancia ressonancia) {
 
+        // Gera o corpo do conteúdo para o exame Ressonância 
+
         StringBuilder sb = new StringBuilder();
 
+        // Adiciona o cabeçalho 
         sb.append(gerarCabecalho(ressonancia));
         sb.append(String.format("ÓRGÃO AVALIADO: %s\n", ressonancia.getRegiaoCorpo())); 
         sb.append("----------------------------------------------------------------------\n");
@@ -50,6 +55,7 @@ public class TXTFormatterVisitor implements VisitorFormatter {
         sb.append(ressonancia.getContrasteUsado() > 0.0 ? ressonancia.getContrasteUsado() + " ml" : "Não utilizado");
         sb.append("\n\n");
 
+        // Como é um txt, apenas aparecem os caminhos das imagens.
         if (!ressonancia.getImagens().isEmpty()) {
             sb.append("IMAGENS DE REFERÊNCIA (caminhos):\n");
             for (String caminho : ressonancia.getImagens()) {
@@ -57,12 +63,16 @@ public class TXTFormatterVisitor implements VisitorFormatter {
             }
             sb.append("\n");
         }
+
+        //Adiciona o Rodapé
         sb.append(gerarRodape(ressonancia));
         this.createTXT(sb.toString(), "ressonancia");
     }
 
     @Override
     public void gerarLaudo(RaioX raiox) {
+
+        // Gera o corpo do conteúdo para o exame RaioX
         StringBuilder sb = new StringBuilder();
 
         sb.append(gerarCabecalho(raiox));
@@ -82,7 +92,9 @@ public class TXTFormatterVisitor implements VisitorFormatter {
 
     }
     
+    // Gera o cabeçalho comum a todos os tipos de exames
     private String gerarCabecalho(Exame exame) {
+
         StringBuilder sb = new StringBuilder();
 
         sb.append("=".repeat(70) + "\n");
@@ -99,6 +111,7 @@ public class TXTFormatterVisitor implements VisitorFormatter {
         return sb.toString();
     }
 
+    // Gera o rodapé comum a todos os tipos de exames
     private String gerarRodape (Exame exame) {
         StringBuilder sb = new StringBuilder();
         sb.append("-".repeat(70) + "\n");

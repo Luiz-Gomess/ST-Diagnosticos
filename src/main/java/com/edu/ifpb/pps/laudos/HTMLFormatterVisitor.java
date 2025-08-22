@@ -20,22 +20,23 @@ import com.edu.ifpb.pps.utils.Utils;
 
 import nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect;
 
-public class HTMLFormatterVisitor implements VisitorFormatter {
+public class HTMLFormatterVisitor extends VisitorFormatter {
 
     private final TemplateEngine templateEngine;
+    private final String PASTA_DESTINO = getPathDestino("html");
 
     public HTMLFormatterVisitor() {
+        // Configuração do Template Engine do Thymeleaf
+        ClassLoaderTemplateResolver resolver = new ClassLoaderTemplateResolver();
+        
+        resolver.setPrefix("templates/");
+        resolver.setSuffix(".html");
+        resolver.setCharacterEncoding("UTF-8");
 
-            ClassLoaderTemplateResolver resolver = new ClassLoaderTemplateResolver();
-            
-            resolver.setPrefix("templates/");
-            resolver.setSuffix(".html");
-            resolver.setCharacterEncoding("UTF-8");
+        this.templateEngine = new TemplateEngine();
+        this.templateEngine.setTemplateResolver(resolver);
 
-            this.templateEngine = new TemplateEngine();
-            this.templateEngine.setTemplateResolver(resolver);
-
-            this.templateEngine.addDialect(new LayoutDialect());
+        this.templateEngine.addDialect(new LayoutDialect());
 
     }
 
@@ -47,7 +48,7 @@ public class HTMLFormatterVisitor implements VisitorFormatter {
 
             System.out.println("-------------------------------------------------");
             System.out.println("✅ Laudo gerado com sucesso!");
-            System.out.println("Arquivo salvo em: " + caminho.toAbsolutePath());
+            System.out.println("Arquivo salvo em: " + caminho);
             System.out.println("-------------------------------------------------");
 
         } catch (IOException e) {
@@ -58,7 +59,7 @@ public class HTMLFormatterVisitor implements VisitorFormatter {
 
     @Override
     public void gerarLaudo(Hemograma hemograma) {
-
+        // TODO: Implementar a geração de laudo para Sanguíneos em todos os formatos
     }
 
     @Override
@@ -75,7 +76,7 @@ public class HTMLFormatterVisitor implements VisitorFormatter {
         context.setVariable("imagensBase64", imagensEmBase64); 
 
         String conteudo = templateEngine.process("laudos/ressonancia.html", context);
-        this.createHTML(Path.of("laudo_ressonancia.html"), conteudo);
+        this.createHTML(Path.of(PASTA_DESTINO + "laudo_ressonancia.html"), conteudo);
 
     }
 
@@ -94,9 +95,10 @@ public class HTMLFormatterVisitor implements VisitorFormatter {
 
 
         String conteudo = templateEngine.process("laudos/raiox.html", context);
-        this.createHTML(Path.of("laudo_raiox.html"), conteudo);
+        this.createHTML(Path.of(PASTA_DESTINO + "laudo_raiox.html"), conteudo);
     }
     
+    // Teste
     public static void main(String[] args) {
         Paciente paciente = new Paciente(1, "7235", "Luiz Fernando", null, "lfernandoagomes@gmail.com", "83987999851", LocalDate.of(2005, 06, 8));
         Medico solicitante = new Medico("João da Silva", "7653");
@@ -109,8 +111,10 @@ public class HTMLFormatterVisitor implements VisitorFormatter {
 
         HTMLFormatterVisitor visitor = new HTMLFormatterVisitor();
         ressonancia.gerarLaudo(visitor);
+        ressonancia.gerarLaudo(new TXTFormatterVisitor());
 
         Exame raiox = new RaioX(paciente, solicitante, laudista, "Bancários", "Roseane Doris", "PULMÃO", "Raio X do pulmão", "/home/luiz/pps/projeto/src/main/resources/imagens/banana.jpg", true);
         raiox.gerarLaudo(visitor);
+        raiox.gerarLaudo(new TXTFormatterVisitor());
     }
 }
