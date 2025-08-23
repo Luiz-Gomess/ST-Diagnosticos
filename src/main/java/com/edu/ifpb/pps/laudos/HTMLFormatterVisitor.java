@@ -105,16 +105,23 @@ public class HTMLFormatterVisitor extends VisitorFormatter {
         Medico laudista = new Medico("João Laudista", "12345");
 
         Exame ressonancia = new Ressonancia(paciente, solicitante, laudista, "TAMBAÚ", "UNIMED", "JOELHO", "Ressonância no joelho", 3.0, List.of(
-            "/home/luiz/pps/projeto/src/main/resources/imagens/banana.jpg",
-            "/home/luiz/pps/projeto/src/main/resources/imagens/maca.jpg"
+            "./src/main/resources/imagens/maca.jpg",
+            "./src/main/resources/imagens/banana.jpg",
+            "./src/main/resources/imagens/maca.jpg"
         ), false, true);
 
         HTMLFormatterVisitor visitor = new HTMLFormatterVisitor();
         ressonancia.gerarLaudo(visitor);
-        ressonancia.gerarLaudo(new TXTFormatterVisitor());
+        // ressonancia.gerarLaudo(new TXTFormatterVisitor());
+        ressonancia.gerarLaudo(new PDFFormatterVisitor());
 
-        Exame raiox = new RaioX(paciente, solicitante, laudista, "Bancários", "Roseane Doris", "PULMÃO", "Raio X do pulmão", "/home/luiz/pps/projeto/src/main/resources/imagens/banana.jpg", true);
-        raiox.gerarLaudo(visitor);
-        raiox.gerarLaudo(new TXTFormatterVisitor());
+        // Exame raiox = new RaioX(paciente, solicitante, laudista, "Bancários", "Roseane Doris", "PULMÃO", "Raio X do pulmão", "/home/luiz/pps/projeto/src/main/resources/imagens/banana.jpg", true);
+        Exame raiox = new RaioX(paciente, solicitante, laudista, "Bancários", "Roseane Doris", "PULMÃO", "Raio X do pulmão", "./src/main/resources/imagens/maca.jpg", true);
+        // raiox.gerarLaudo(visitor);
+        // raiox.gerarLaudo(new TXTFormatterVisitor());
+
+        // raiox.gerarLaudo(new PDFFormatterVisitor());
+
+
     }
 }
