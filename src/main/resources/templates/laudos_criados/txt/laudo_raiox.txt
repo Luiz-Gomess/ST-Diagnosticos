@@ -1,26 +1,26 @@
 ======================================================================
-                             RESSONANCIA
+                                RAIOX
 ======================================================================
 
-Paciente:                 Luiz
-Dr(a):                    Carlos ANDRÉ
-Coleta:                   TAMBAU
-Convênio:                 Unimed
+Paciente:                 Luiz Fernando
+Dr(a):                    João da Silva
+Coleta:                   Bancários
+Convênio:                 Roseane Doris
 D.N.:                     08/06/2005
 ----------------------------------------------------------------------
-ÓRGÃO AVALIADO: Joelho
+ÓRGÃO AVALIADO: PULMÃO
 ----------------------------------------------------------------------
-LAUDO DESCRITIVO:
-Ressonância Magnética do Joelho
+DESCRIÇÃO 
+Raio X do pulmão
 
-Contraste: 
-10.0 ml
+IMAGEM DE REFERÊNCIA (caminho):
 
-IMAGENS DE REFERÊNCIA (caminhos):
-- imagem3.jpg
+- ./src/main/resources/imagens/maca.jpg
 
+RADIOLOGISTA 
+João Laudista
 ----------------------------------------------------------------------
-Gerado em: 22/08/2025
-Dr(a): Marcelo Breno
-CRM: 09876
+Gerado em: 23/08/2025
+Dr(a): João Laudista
+CRM: 12345
 ----------------------------------------------------------------------

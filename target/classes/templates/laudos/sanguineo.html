@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"> <body>
+
+<div layout:fragment="conteudo">
+
+    <div class="d-flex align-items-center mb-4">
+        <i class="bi bi-droplet-half h2 me-3 text-primary"></i> <h5 class="card-title mb-0">
+            Laudo de Hemograma Completo
+        </h5>
+    </div>
+
+    <table class="table table-bordered mt-4">
+        <thead class="thead-light">
+            <tr>
+                <th>Exame</th>
+                <th>Resultado</th>
+                <th>Unidade</th>
+                <th>Valores de Referência</th>
+            </tr>
+        </thead>
+        <tbody>
+            <th:block th:each="item : ${itensSanguineos}">
+                
+                <tr th:if="${item.getClass() == GrupoResultados}" class="table-secondary">
+                    <td colspan="4" class="font-weight-bold" th:text="${item.nome}">NOME DO GRUPO</td>
+                </tr>
+                
+                <tr th:if="${item.getClass() == GrupoResultados}" th:each="subItem : ${item.getItens()}">
+                   <td th:text="${subItem.nome}">Nome do Exame</td>
+                   <td class="font-weight-bold" th:text="${subItem.valor}">Valor</td>
+                   <td th:text="${subItem.unidade}">Unidade</td>
+                   <td th:text="${subItem.valorReferencia}">Referência</td>
+                </tr>
+
+            </th:block>
+        </tbody>
+    </table>
+
+    <hr class="my-4">
+</div>
+
+</body>
+</html>

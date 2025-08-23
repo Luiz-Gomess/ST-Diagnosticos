@@ -15,12 +15,12 @@ Raio X do pulmão
 
 IMAGEM DE REFERÊNCIA (caminho):
 
-- /home/luiz/pps/projeto/src/main/resources/imagens/banana.jpg
+- ./src/main/resources/imagens/maca.jpg
 
 RADIOLOGISTA 
 João Laudista
 ----------------------------------------------------------------------
-Gerado em: 21/08/2025
+Gerado em: 23/08/2025
 Dr(a): João Laudista
 CRM: 12345
 ----------------------------------------------------------------------
