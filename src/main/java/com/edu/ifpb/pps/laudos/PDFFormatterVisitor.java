@@ -4,6 +4,9 @@ import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 
 import com.edu.ifpb.pps.exames.Exame;
+import com.edu.ifpb.pps.exames.composite.GrupoIndicadores;
+import com.edu.ifpb.pps.exames.composite.Indicador;
+import com.edu.ifpb.pps.exames.composite.ItemSanguineo;
 import com.edu.ifpb.pps.exames.impl.Sanguineo;
 import com.edu.ifpb.pps.exames.impl.RaioX;
 import com.edu.ifpb.pps.exames.impl.Ressonancia;
@@ -52,10 +55,84 @@ public class PDFFormatterVisitor extends VisitorFormatter{
 
 
     @Override
-    public void gerarLaudo(Sanguineo hemograma) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'gerarLaudo'");
+    public void gerarLaudo(Sanguineo sanguineo) {
+        // 1. Configura o documento PDF
+        config("laudo_sanguineo.pdf");
+
+        // 2. Gera o cabeçalho padrão
+        gerarCabecalho(sanguineo);
+
+        // 3. Adiciona um título específico
+        Paragraph titulo = new Paragraph("Laudo de Exame Sanguíneo")
+                .setBold()
+                .setFontSize(12)
+                .setTextAlignment(TextAlignment.CENTER)
+                .setMarginTop(20)
+                .setMarginBottom(10);
+        document.add(titulo);
+
+        // 4. Cria a tabela para exibir os resultados
+        // ALTERAÇÃO 1: Ajusta a tabela para 5 colunas e redistribui as larguras
+        Table tabelaResultados = new Table(UnitValue.createPercentArray(new float[]{22f, 13f, 13f, 26f, 26f})).useAllAvailableWidth();
+        
+        // ALTERAÇÃO 2: Adiciona o cabeçalho para a nova coluna
+        tabelaResultados.addHeaderCell(createStyledHeaderCell("Exame"));
+        tabelaResultados.addHeaderCell(createStyledHeaderCell("Resultado"));
+        tabelaResultados.addHeaderCell(createStyledHeaderCell("Unidade"));
+        tabelaResultados.addHeaderCell(createStyledHeaderCell("Valores de Referência"));
+        tabelaResultados.addHeaderCell(createStyledHeaderCell("Valores Críticos")); // <- NOVA COLUNA
+
+        // 5. Itera sobre a estrutura Composite para preencher a tabela
+        for (ItemSanguineo item : sanguineo.getItensSanguineos()) {
+            if (item instanceof GrupoIndicadores) {
+                GrupoIndicadores grupo = (GrupoIndicadores) item;
+                
+                // ALTERAÇÃO 3: Ajusta a célula do grupo para ocupar 5 colunas
+                Cell cellGrupo = new Cell(1, 5) 
+                        .add(new Paragraph(grupo.getNome().toUpperCase()).setBold())
+                        .setBackgroundColor(ColorConstants.LIGHT_GRAY)
+                        .setTextAlignment(TextAlignment.LEFT)
+                        .setPadding(5);
+                tabelaResultados.addCell(cellGrupo);
+
+                for (ItemSanguineo subItem : grupo.getItens()) {
+                    if (subItem instanceof Indicador) {
+                        Indicador indicador = (Indicador) subItem;
+                        
+                        tabelaResultados.addCell(new Cell().add(new Paragraph(indicador.getNome())));
+                        tabelaResultados.addCell(new Cell().add(new Paragraph(indicador.getValor()).setBold()));
+                        tabelaResultados.addCell(new Cell().add(new Paragraph(indicador.getUnidade())));
+                        
+                        String valoresRef = String.join("\n", indicador.getValoresReferencia());
+                        tabelaResultados.addCell(new Cell().add(new Paragraph(valoresRef)));
+
+                        // ALTERAÇÃO 4: Adiciona a nova célula com os valores críticos
+                        // Assumindo que você tem um getter getValoresCriticos() em Indicador.java
+                        String valoresCriticos = String.join("\n", indicador.getValoresCriticos());
+                        tabelaResultados.addCell(new Cell().add(new Paragraph(valoresCriticos)));
+                    }
+                }
+            }
+        }
+
+        document.add(tabelaResultados);
+
+        // 6. Gera o rodapé padrão
+        gerarRodape(sanguineo);
+
+        // 7. Fecha o documento
+        document.close();
+        System.out.println("✅ Laudo PDF para Sanguíneo gerado com sucesso!");
     }
+
+    // Método auxiliar para estilizar o cabeçalho da tabela (adicione isso à sua classe)
+    private Cell createStyledHeaderCell(String content) {
+        return new Cell()
+                .add(new Paragraph(content).setBold())
+                .setBackgroundColor(new DeviceGray(0.85f)) // Um cinza um pouco mais escuro
+                .setTextAlignment(TextAlignment.CENTER);
+    }
+
 
     @Override
     public void gerarLaudo(Ressonancia ressonancia) {

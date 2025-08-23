@@ -31,7 +31,6 @@ public class Indicador extends ItemSanguineo {
         for (String valor : this.valoresReferencia) {
             conteudo += valor + "<br>";
         }
-
         return conteudo;
     }
 
@@ -40,7 +39,6 @@ public class Indicador extends ItemSanguineo {
         for (String valor : this.valoresCriticos) {
             conteudo += valor + "<br>";
         }
-
         return conteudo;
     }
     public List<String> getValoresReferencia() { 
@@ -61,5 +59,9 @@ public class Indicador extends ItemSanguineo {
 
     public void removeValorCritico(String valor) {
         this.valoresCriticos.remove(valor);
+    }
+
+    public List<String> getValoresCriticos(){
+        return this.valoresCriticos;
     }
 }

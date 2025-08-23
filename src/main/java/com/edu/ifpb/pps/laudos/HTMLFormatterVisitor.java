@@ -182,7 +182,9 @@ public class HTMLFormatterVisitor extends VisitorFormatter {
 
         
         sanguineo.adicionarItem(hemografia);
-        sanguineo.gerarLaudo(visitor);
+        // sanguineo.gerarLaudo(visitor);
+        // sanguineo.gerarLaudo(new TXTFormatterVisitor());
+        sanguineo.gerarLaudo(new PDFFormatterVisitor());
 
         // 2. Criar os grupos e itens (a estrutura composite)
         // GrupoIndicadores eritrograma = new GrupoIndicadores("ERITROGRAMA");

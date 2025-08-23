@@ -8,6 +8,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import com.edu.ifpb.pps.exames.Exame;
+import com.edu.ifpb.pps.exames.composite.GrupoIndicadores;
+import com.edu.ifpb.pps.exames.composite.Indicador;
+import com.edu.ifpb.pps.exames.composite.ItemSanguineo;
 import com.edu.ifpb.pps.exames.impl.Sanguineo;
 import com.edu.ifpb.pps.exames.impl.RaioX;
 import com.edu.ifpb.pps.exames.impl.Ressonancia;
@@ -33,8 +36,58 @@ public class TXTFormatterVisitor extends VisitorFormatter {
     }
 
     @Override
-    public void gerarLaudo(Sanguineo hemograma) {
+    public void gerarLaudo(Sanguineo sanguineo) {
+        StringBuilder sb = new StringBuilder();
 
+        // 1. Reutiliza o cabeçalho padrão
+        sb.append(gerarCabecalho(sanguineo));
+        sb.append("\n"); // Adiciona um espaço extra após o cabeçalho
+
+        // 2. Itera sobre a estrutura Composite do exame sanguíneo com o NOVO FORMATO
+        for (ItemSanguineo item : sanguineo.getItensSanguineos()) {
+            
+            // Verifica se o item é um Grupo (ex: "HEMOGRAFIA")
+            if (item instanceof GrupoIndicadores) {
+                GrupoIndicadores grupo = (GrupoIndicadores) item;
+                sb.append("-".repeat(70) + "\n");
+                sb.append(String.format("GRUPO: %s\n", grupo.getNome().toUpperCase()));
+                sb.append("-".repeat(70) + "\n\n");
+                
+                // Itera sobre os indicadores dentro do grupo
+                for (ItemSanguineo subItem : grupo.getItens()) {
+                    if (subItem instanceof Indicador) {
+                        Indicador indicador = (Indicador) subItem;
+                        
+                        sb.append(String.format("Exame: %s\n", indicador.getNome()));
+                        sb.append(String.format("Resultado: %s\n", indicador.getValor()));
+                        sb.append(String.format("Unidade: %s\n", indicador.getUnidade()));
+                        
+                        sb.append("Valores de Referência:\n");
+                        List<String> linhasReferencia = indicador.getValoresReferencia();
+                        
+                        // Itera sobre a lista e adiciona a indentação
+                        for (String linha : linhasReferencia) {
+                            sb.append(String.format("    %s\n", linha)); 
+                        }   
+                        
+                        sb.append("Valores Críticos:\n");
+                        List<String> linhasCritico = indicador.getValoresCriticos();
+
+                        for (String linha : linhasCritico) {
+                            sb.append(String.format("    %s\n", linha)); 
+                        }   
+
+                        sb.append("\n"); // Adiciona uma linha em branco entre os indicadores
+                    }
+                }
+            }
+        }
+
+        // 3. Reutiliza o rodapé padrão
+        sb.append(gerarRodape(sanguineo));
+
+        // 4. Cria o arquivo .txt
+        this.createTXT(sb.toString(), "sanguineo");
     }
 
     @Override
