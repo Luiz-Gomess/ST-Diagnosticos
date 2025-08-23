@@ -18,7 +18,13 @@ public class Hemograma extends Exame{
     private int plaquetas;
     private double volumeCorpuscularMedio;
     
-    public Hemograma(Paciente paciente, Medico medicoSolicitante, Medico medicoLaudista, String localColeta,String convenio) {
+    public Hemograma(
+        Paciente paciente, 
+        Medico medicoSolicitante, 
+        Medico medicoLaudista, 
+        String localColeta,
+        String convenio) {
+
         super(paciente, medicoSolicitante, medicoLaudista, localColeta, convenio);
     }
 

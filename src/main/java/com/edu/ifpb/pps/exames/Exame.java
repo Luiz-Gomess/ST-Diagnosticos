@@ -24,7 +24,13 @@ public abstract class Exame {
 
     public Exame() {}
 
-    public Exame(Paciente paciente, Medico medicoSolicitante, Medico medicoLaudista, String localColeta, String convenio){
+    public Exame(
+        Paciente paciente, 
+        Medico medicoSolicitante, 
+        Medico medicoLaudista, 
+        String localColeta, 
+        String convenio ){
+
         this.paciente = paciente;
         this.medicoSolicitante = medicoSolicitante;
         this.medicoLaudista = medicoLaudista;
