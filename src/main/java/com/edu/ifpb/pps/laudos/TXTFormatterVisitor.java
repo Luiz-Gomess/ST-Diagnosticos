@@ -20,7 +20,9 @@ public class TXTFormatterVisitor implements VisitorFormatter {
 
     private void createTXT(String conteudo, String tipoExame) {
         try {
-            Path caminhoSaida = Path.of(String.format("laudo_%s.txt", tipoExame));
+            Path pastaSaida = Path.of("src", "main", "resources", "data", "laudos");
+            Files.createDirectories(pastaSaida); // cria se não existir
+            Path caminhoSaida = pastaSaida.resolve(String.format("laudo_%s.txt", tipoExame));
             Files.writeString(caminhoSaida, conteudo);
             System.out.println("✅ Laudo TXT gerado com sucesso!");
             System.out.println("Arquivo salvo em: " + caminhoSaida.toAbsolutePath());
