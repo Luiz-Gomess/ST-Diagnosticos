@@ -1,5 +1,6 @@
 package com.edu.ifpb.pps.exames.impl;
 
+import com.edu.ifpb.pps.enums.Prioridade;
 import com.edu.ifpb.pps.exames.Exame;
 import com.edu.ifpb.pps.laudos.VisitorFormatter;
 import com.edu.ifpb.pps.models.Medico;
@@ -16,8 +17,8 @@ public class RaioX extends Exame{
     private String laudoDescritivo;
     private String caminhoImagem;
 
-    public RaioX(Paciente paciente, Medico medicoSolicitante, Medico medicoLaudista, String localColeta,String convenio, String orgaoAvaliado, String laudoDescritivo, String caminho) {
-        super(paciente, medicoSolicitante, medicoLaudista, localColeta, convenio);
+    public RaioX(Paciente paciente, Medico medicoSolicitante, Medico medicoLaudista, String localColeta,String convenio, String orgaoAvaliado, String laudoDescritivo, String caminho, Prioridade prioridade) {
+        super(paciente, medicoSolicitante, medicoLaudista, localColeta, convenio, prioridade);
         this.orgaoAvaliado = orgaoAvaliado;
         this.laudoDescritivo = laudoDescritivo;
         this.caminhoImagem = caminho;

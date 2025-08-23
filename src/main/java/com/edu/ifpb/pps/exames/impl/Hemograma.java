@@ -1,5 +1,6 @@
 package com.edu.ifpb.pps.exames.impl;
 
+import com.edu.ifpb.pps.enums.Prioridade;
 import com.edu.ifpb.pps.exames.Exame;
 import com.edu.ifpb.pps.laudos.VisitorFormatter;
 import com.edu.ifpb.pps.models.Medico;
@@ -18,8 +19,8 @@ public class Hemograma extends Exame{
     private int plaquetas;
     private double volumeCorpuscularMedio;
     
-    public Hemograma(Paciente paciente, Medico medicoSolicitante, Medico medicoLaudista, String localColeta,String convenio) {
-        super(paciente, medicoSolicitante, medicoLaudista, localColeta, convenio);
+    public Hemograma(Paciente paciente, Medico medicoSolicitante, Medico medicoLaudista, String localColeta,String convenio, Prioridade prioridade) {
+        super(paciente, medicoSolicitante, medicoLaudista, localColeta, convenio, prioridade);
     }
 
     @Override
