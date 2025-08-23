@@ -11,9 +11,11 @@ import org.thymeleaf.context.Context;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 import com.edu.ifpb.pps.exames.Exame;
-import com.edu.ifpb.pps.exames.impl.Hemograma;
-import com.edu.ifpb.pps.exames.impl.Ressonancia;
+import com.edu.ifpb.pps.exames.composite.GrupoIndicadores;
+import com.edu.ifpb.pps.exames.composite.Indicador;
 import com.edu.ifpb.pps.exames.impl.RaioX;
+import com.edu.ifpb.pps.exames.impl.Ressonancia;
+import com.edu.ifpb.pps.exames.impl.Sanguineo;
 import com.edu.ifpb.pps.models.Medico;
 import com.edu.ifpb.pps.models.Paciente;
 import com.edu.ifpb.pps.utils.Utils;
@@ -58,8 +60,24 @@ public class HTMLFormatterVisitor extends VisitorFormatter {
     }
 
     @Override
-    public void gerarLaudo(Hemograma hemograma) {
-        // TODO: Implementar a geração de laudo para Sanguíneos em todos os formatos
+    public void gerarLaudo(Sanguineo sanguineo) {
+        Context context = new Context();
+
+        // Passa o objeto Exame completo para o cabeçalho do laudo
+        context.setVariable("exame", sanguineo);
+        context.setVariable("titulo", "Laudo Sanguineo Completo");
+        context.setVariable("dataGeracao", new java.util.Date());
+
+        // Passa a lista de itens (a estrutura Composite) para o template
+        context.setVariable("itensSanguineos", sanguineo.getItensSanguineos());
+
+        // Informa ao template os nomes das classes para fazer a verificação de tipo
+        context.setVariable("GrupoResultados", GrupoIndicadores.class);
+        context.setVariable("ItemResultado", Indicador.class);
+
+        String conteudo = templateEngine.process("laudos/sanguineo.html", context);
+        System.out.println("aui 3");
+        this.createHTML(Path.of(PASTA_DESTINO + "laudo_sanguineo.html"), conteudo);
     }
 
     @Override
@@ -113,14 +131,31 @@ public class HTMLFormatterVisitor extends VisitorFormatter {
         HTMLFormatterVisitor visitor = new HTMLFormatterVisitor();
         ressonancia.gerarLaudo(visitor);
         // ressonancia.gerarLaudo(new TXTFormatterVisitor());
-        ressonancia.gerarLaudo(new PDFFormatterVisitor());
+        // ressonancia.gerarLaudo(new PDFFormatterVisitor());
 
         // Exame raiox = new RaioX(paciente, solicitante, laudista, "Bancários", "Roseane Doris", "PULMÃO", "Raio X do pulmão", "/home/luiz/pps/projeto/src/main/resources/imagens/banana.jpg", true);
         Exame raiox = new RaioX(paciente, solicitante, laudista, "Bancários", "Roseane Doris", "PULMÃO", "Raio X do pulmão", "./src/main/resources/imagens/maca.jpg", true);
-        // raiox.gerarLaudo(visitor);
+        raiox.gerarLaudo(visitor);
         // raiox.gerarLaudo(new TXTFormatterVisitor());
 
         // raiox.gerarLaudo(new PDFFormatterVisitor());
+
+        Sanguineo sanguineo = new Sanguineo(paciente, solicitante, laudista, "TAMBAÚ", "UNIMED");
+
+        // 2. Criar os grupos e itens (a estrutura composite)
+        GrupoIndicadores eritrograma = new GrupoIndicadores("ERITROGRAMA");
+        eritrograma.adicionar(new Indicador("Hemácias", "4.400", "milhões/mm³", "4.1 - 5.1"));
+        eritrograma.adicionar(new Indicador("Hemoglobina", "12.0", "g/dL", "11.5 - 14.5"));
+        eritrograma.adicionar(new Indicador("Hematócrito", "35.8", "%", "33 - 41"));
+
+        GrupoIndicadores leucograma = new GrupoIndicadores("LEUCOGRAMA");
+        leucograma.adicionar(new Indicador("Leucócitos", "6.500", "/mm³", "4.000 - 11.000"));
+
+        // 3. Adicionar os grupos ao sanguineo
+        sanguineo.adicionarItem(eritrograma);
+        sanguineo.adicionarItem(leucograma);
+
+        sanguineo.gerarLaudo(visitor);
 
 
     }

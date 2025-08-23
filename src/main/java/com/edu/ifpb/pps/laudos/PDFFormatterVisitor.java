@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 
 import com.edu.ifpb.pps.exames.Exame;
-import com.edu.ifpb.pps.exames.impl.Hemograma;
+import com.edu.ifpb.pps.exames.impl.Sanguineo;
 import com.edu.ifpb.pps.exames.impl.RaioX;
 import com.edu.ifpb.pps.exames.impl.Ressonancia;
 import com.itextpdf.io.image.ImageData;
@@ -52,7 +52,7 @@ public class PDFFormatterVisitor extends VisitorFormatter{
 
 
     @Override
-    public void gerarLaudo(Hemograma hemograma) {
+    public void gerarLaudo(Sanguineo hemograma) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'gerarLaudo'");
     }

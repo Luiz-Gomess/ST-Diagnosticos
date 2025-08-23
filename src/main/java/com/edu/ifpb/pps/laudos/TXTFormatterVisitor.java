@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import com.edu.ifpb.pps.exames.Exame;
-import com.edu.ifpb.pps.exames.impl.Hemograma;
+import com.edu.ifpb.pps.exames.impl.Sanguineo;
 import com.edu.ifpb.pps.exames.impl.RaioX;
 import com.edu.ifpb.pps.exames.impl.Ressonancia;
 import com.edu.ifpb.pps.models.Medico;
@@ -33,7 +33,7 @@ public class TXTFormatterVisitor extends VisitorFormatter {
     }
 
     @Override
-    public void gerarLaudo(Hemograma hemograma) {
+    public void gerarLaudo(Sanguineo hemograma) {
 
     }
 

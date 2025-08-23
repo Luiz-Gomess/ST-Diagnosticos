@@ -6,10 +6,12 @@
         <strong>Gerado em:</strong> 
         <span th:text="${#dates.format(dataGeracao, 'dd/MM/yyyy HH:mm')}">Data e Hora</span>
     </span>
-    <span>
-        <strong>Dr(a):</strong> <span th:text="${exame.medicoLaudista.nome}">Nome do Responsável</span>
-        <strong>CRM:</strong> <span th:text="${exame.medicoLaudista.crm}">CRM</span>
-    </span>
+            <div class="text-end">
+            <p class="mb-0"><em>Laudo emitido conforme análise das imagens adquiridas.</em></p>
+            <p class="mt-3 mb-0">_________________________</p>
+            <p class="mb-0" th:text="'Dr(a). ' + ${exame.medicoLaudista.nome}">Dr(a). Nome do Radiologista</p>
+            <p class="text-muted" th:text="'CRM: ' + ${exame.medicoLaudista.crm}">CRM: 12345</p>
+        </div>
 </div>
 </body>
 </html>
