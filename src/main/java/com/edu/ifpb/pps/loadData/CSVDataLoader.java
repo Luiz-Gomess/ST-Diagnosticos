@@ -12,7 +12,6 @@ import org.apache.commons.csv.CSVRecord;
 
 public class CSVDataLoader<T> {
 
-    
     private CSVMappingStrategy<T> strategy;
     
     public CSVDataLoader (CSVMappingStrategy<T> strategy) {

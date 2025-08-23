@@ -4,9 +4,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.edu.ifpb.pps.enums.Prioridade;
 import com.edu.ifpb.pps.laudos.VisitorFormatter;
 import com.edu.ifpb.pps.models.Medico;
 import com.edu.ifpb.pps.models.Paciente;
+import com.edu.ifpb.pps.utils.IdGenerator;
 
 import lombok.Data;
 
@@ -21,16 +23,19 @@ public abstract class Exame {
     private String convenio;
     private LocalDate dataExame;
     private List<String> observacoes = new ArrayList<>();
+    private Prioridade prioridade;
 
     public Exame() {}
 
-    public Exame(Paciente paciente, Medico medicoSolicitante, Medico medicoLaudista, String localColeta, String convenio){
+    public Exame(Paciente paciente, Medico medicoSolicitante, Medico medicoLaudista, String localColeta, String convenio, Prioridade prioridade) {
+        this.id = IdGenerator.getInstance().getNextId();
         this.paciente = paciente;
         this.medicoSolicitante = medicoSolicitante;
         this.medicoLaudista = medicoLaudista;
         this.localColeta = localColeta;
         this.convenio = convenio;
         this.dataExame = LocalDate.now();
+        this.prioridade = prioridade;
     }
 
     public abstract void gerarLaudo(VisitorFormatter visitor);
