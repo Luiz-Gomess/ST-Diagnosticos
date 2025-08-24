@@ -6,7 +6,6 @@ public class NotificadorSistema extends NotificadorBase{
 
     public NotificadorSistema(INotificador encapsulado) {
         super(encapsulado);
-        //TODO Auto-generated constructor stub
     }
 
     @Override

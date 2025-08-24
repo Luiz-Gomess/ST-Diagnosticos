@@ -8,9 +8,11 @@ import com.edu.ifpb.pps.laudos.VisitorFormatter;
 import com.edu.ifpb.pps.models.Medico;
 import com.edu.ifpb.pps.models.Paciente;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public abstract class Exame {
 
     private Integer id;
@@ -21,6 +23,7 @@ public abstract class Exame {
     private String convenio;
     private LocalDate dataExame;
     private List<String> observacoes = new ArrayList<>();
+    private double preco;
 
     public Exame() {}
 
