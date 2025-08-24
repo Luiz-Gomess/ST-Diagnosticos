@@ -1,5 +1,8 @@
 package com.edu.ifpb.pps.validacoes.ressonancia;
 
+import java.util.List;
+
+import com.edu.ifpb.pps.enums.Prioridade;
 import com.edu.ifpb.pps.exames.impl.Ressonancia;
 import com.edu.ifpb.pps.validacoes.IValidador;
 

@@ -180,23 +180,23 @@ public class TXTFormatterVisitor extends VisitorFormatter {
 
     // Teste
     public static void main(String[] args) {
-        Paciente paciente = new Paciente(1, "7235", "Luiz Fernando", null, "lfernandoagomes@gmail.com", "83987999851",
-            LocalDate.of(2005, 6, 8)
-        );
-        Medico solicitante = new Medico("João da Silva", "7653");
-        Medico laudista = new Medico("João Laudista", "12345");
+        // Paciente paciente = new Paciente(1, "7235", "Luiz Fernando", null, "lfernandoagomes@gmail.com", "83987999851",
+        //     LocalDate.of(2005, 6, 8)
+        // );
+        // Medico solicitante = new Medico("João da Silva", "7653");
+        // Medico laudista = new Medico("João Laudista", "12345");
 
-        TXTFormatterVisitor formatter = new TXTFormatterVisitor();
-        Exame ressonancia = new Ressonancia(paciente, solicitante, laudista, "TAMBAÚ", "UNIMED", "JOELHO", "Ressonância no joelho", 3.0, List.of(
-            "/home/luiz/pps/projeto/src/main/resources/imagens/banana.jpg",
-            "/home/luiz/pps/projeto/src/main/resources/imagens/maca.jpg"
-        ), false, true);
+        // TXTFormatterVisitor formatter = new TXTFormatterVisitor();
+        // Exame ressonancia = new Ressonancia(paciente, solicitante, laudista, "TAMBAÚ", "UNIMED", "JOELHO", "Ressonância no joelho", 3.0, List.of(
+        //     "/home/luiz/pps/projeto/src/main/resources/imagens/banana.jpg",
+        //     "/home/luiz/pps/projeto/src/main/resources/imagens/maca.jpg"
+        // ), false, true);
 
-        ressonancia.gerarLaudo(formatter);
+        // ressonancia.gerarLaudo(formatter);
 
-        Exame raiox = new RaioX(paciente, solicitante, laudista, "Bancários", "Roseane Doris", "PULMÃO", "Raio X do pulmão",
-         "/home/luiz/pps/projeto/src/main/resources/imagens/banana.jpg", true
-        );
-        raiox.gerarLaudo(formatter);
+        // Exame raiox = new RaioX(paciente, solicitante, laudista, "Bancários", "Roseane Doris", "PULMÃO", "Raio X do pulmão",
+        //  "/home/luiz/pps/projeto/src/main/resources/imagens/banana.jpg", true
+        // );
+        // raiox.gerarLaudo(formatter);
     }
 }

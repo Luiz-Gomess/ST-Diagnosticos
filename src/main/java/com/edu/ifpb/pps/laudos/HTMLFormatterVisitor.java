@@ -120,15 +120,15 @@ public class HTMLFormatterVisitor extends VisitorFormatter {
     
     // Teste
     public static void main(String[] args) {
-        Paciente paciente = new Paciente(1, "7235", "Luiz Fernando", null, "lfernandoagomes@gmail.com", "83987999851", LocalDate.of(2005, 06, 8));
-        Medico solicitante = new Medico("João da Silva", "7653");
-        Medico laudista = new Medico("João Laudista", "12345");
+        // Paciente paciente = new Paciente(1, "7235", "Luiz Fernando", null, "lfernandoagomes@gmail.com", "83987999851", LocalDate.of(2005, 06, 8));
+        // Medico solicitante = new Medico("João da Silva", "7653");
+        // Medico laudista = new Medico("João Laudista", "12345");
 
-        Exame ressonancia = new Ressonancia(paciente, solicitante, laudista, "TAMBAÚ", "UNIMED", "JOELHO", "Ressonância no joelho", 3.0, List.of(
-            "./src/main/resources/imagens/maca.jpg",
-            "./src/main/resources/imagens/banana.jpg",
-            "./src/main/resources/imagens/maca.jpg"
-        ), false, true);
+        // Exame ressonancia = new Ressonancia(paciente, solicitante, laudista, "TAMBAÚ", "UNIMED", "JOELHO", "Ressonância no joelho", 3.0, List.of(
+        //     "./src/main/resources/imagens/maca.jpg",
+        //     "./src/main/resources/imagens/banana.jpg",
+        //     "./src/main/resources/imagens/maca.jpg"
+        // ), false, true);
 
         HTMLFormatterVisitor visitor = new HTMLFormatterVisitor();
         // ressonancia.gerarLaudo(visitor);
@@ -136,13 +136,13 @@ public class HTMLFormatterVisitor extends VisitorFormatter {
         // ressonancia.gerarLaudo(new PDFFormatterVisitor());
 
         // Exame raiox = new RaioX(paciente, solicitante, laudista, "Bancários", "Roseane Doris", "PULMÃO", "Raio X do pulmão", "/home/luiz/pps/projeto/src/main/resources/imagens/banana.jpg", true);
-        Exame raiox = new RaioX(paciente, solicitante, laudista, "Bancários", "Roseane Doris", "PULMÃO", "Raio X do pulmão", "./src/main/resources/imagens/maca.jpg", true);
+        // Exame raiox = new RaioX(paciente, solicitante, laudista, "Bancários", "Roseane Doris", "PULMÃO", "Raio X do pulmão", "./src/main/resources/imagens/maca.jpg", true);
         // raiox.gerarLaudo(visitor);
         // raiox.gerarLaudo(new TXTFormatterVisitor());
 
         // raiox.gerarLaudo(new PDFFormatterVisitor());
 
-        Sanguineo sanguineo = new Sanguineo(paciente, solicitante, laudista, "TAMBAÚ", "UNIMED");
+        // Sanguineo sanguineo = new Sanguineo(paciente, solicitante, laudista, "TAMBAÚ", "UNIMED");
 
         Indicador glicose = new Indicador("glicose", "83", "mg/DL",List.of(
             "Normal: 60 a 99 ",
@@ -181,10 +181,10 @@ public class HTMLFormatterVisitor extends VisitorFormatter {
         hemografia.adicionar(glicose);
 
         
-        sanguineo.adicionarItem(hemografia);
-        // sanguineo.gerarLaudo(visitor);
-        // sanguineo.gerarLaudo(new TXTFormatterVisitor());
-        sanguineo.gerarLaudo(new PDFFormatterVisitor());
+        // sanguineo.adicionarItem(hemografia);
+        // // sanguineo.gerarLaudo(visitor);
+        // // sanguineo.gerarLaudo(new TXTFormatterVisitor());
+        // sanguineo.gerarLaudo(new PDFFormatterVisitor());
 
         // 2. Criar os grupos e itens (a estrutura composite)
         // GrupoIndicadores eritrograma = new GrupoIndicadores("ERITROGRAMA");
