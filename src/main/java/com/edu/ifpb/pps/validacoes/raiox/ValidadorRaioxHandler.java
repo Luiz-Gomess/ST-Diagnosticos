@@ -39,8 +39,10 @@ public abstract class ValidadorRaioxHandler implements IValidador<RaioX> {
 
         ValidadorRaioxHandler assinatura = new AssinaturaValidador();
         ValidadorRaioxHandler imagem = new ContemImagemValidador();
+        ValidadorRaioxHandler laudo = new DescricaoRaioxValidador();
 
         assinatura.setNext(imagem);
+        imagem.setNext(laudo);
         System.out.println(assinatura.validar(raiox));
     }
     
