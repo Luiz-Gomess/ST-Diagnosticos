@@ -7,6 +7,7 @@ import com.edu.ifpb.pps.exames.Exame;
 import com.edu.ifpb.pps.exames.impl.Ressonancia;
 import com.edu.ifpb.pps.models.Medico;
 import com.edu.ifpb.pps.models.Paciente;
+import com.edu.ifpb.pps.enums.Prioridade;
 
 public abstract class DescontosBaseHandler {
 
@@ -36,14 +37,14 @@ public abstract class DescontosBaseHandler {
     }
 
     public static void main(String[] args) {
-        Paciente paciente = new Paciente(1, "7235", "Luiz Fernando", null, "lfernandoagomes@gmail.com", "83987999851", LocalDate.of(2005, 06, 8));
+        Paciente paciente = new Paciente(1, "7235", "Luiz Fernando", null, "lfernandoagomes@gmail.com", "83987999851", LocalDate.of(1963, 06, 8));
         Medico solicitante = new Medico("João da Silva", "7653");
         Medico laudista = new Medico("João Laudista", "12345");
 
-        Exame ressonancia = new Ressonancia(paciente, solicitante, laudista, "TAMBAÚ", "UNIMED", "JOELHO", "Ressonância no joelho", 3.0, List.of(
+        Exame ressonancia = new Ressonancia(20.0, paciente, solicitante, laudista, "TAMBAÚ", "UNIMED", "JOELHO", "Ressonância no joelho", 3.0, List.of(
             "/home/luiz/pps/projeto/src/main/resources/imagens/banana.jpg",
             "/home/luiz/pps/projeto/src/main/resources/imagens/maca.jpg"
-        ), false, true);
+        ), false, true, Prioridade.URGENTE);
 
         DescontoIdososHandler idosos = new DescontoIdososHandler();
         idosos.setNext(new DescontoConvenioHandler());

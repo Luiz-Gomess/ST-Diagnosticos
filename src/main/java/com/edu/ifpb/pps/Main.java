@@ -66,19 +66,23 @@ public class Main {
 
         // System.out.println(lista2.get(0));
 
-        Medico m1 = new Medico("Carlos ANDRÉ", "12344");
-        Medico m2 = new Medico("Marcelo Breno", "09876");
+        Medico m1 = new Medico();
+        m1.setNome("Carlos ANDRÉ");
+        m1.setCrm("12344");
+        Medico m2 = new Medico();
+        m2.setNome("Marcelo Breno");
+        m2.setCrm("09876");
 
         Exame exame1 = new Hemograma(p, m1, m2, "Bancarios", "HapVida", Prioridade.ROTINA);
-        Exame exame2 = new Ressonancia(p, m1, m2, "TAMBAU", "Unimed", "Cabeça", "Ressonância Magnética da Cabeça", 5.0, List.of("imagem1.jpg", "imagem2.jpg"), false, Prioridade.URGENTE);
+        // Exame exame2 = new Ressonancia(p, m1, m2, "TAMBAU", "Unimed", "Cabeça", "Ressonância Magnética da Cabeça", 5.0, List.of("imagem1.jpg", "imagem2.jpg"), false, Prioridade.URGENTE);
         Exame exame3 = new Hemograma(p, m1, m2, "Bancarios", "HapVida", Prioridade.URGENTE);
-        Exame exame4 = new Ressonancia(p, m1, m2, "TAMBAU", "Unimed", "Joelho", "Ressonância Magnética do Joelho", 10.0, List.of("imagem3.jpg"), true, Prioridade.URGENTE);
+        // Exame exame4 = new Ressonancia(p, m1, m2, "TAMBAU", "Unimed", "Joelho", "Ressonância Magnética do Joelho", 10.0, List.of("imagem3.jpg"), true, Prioridade.URGENTE);
 
         FilaExames fila = new FilaExames();
         fila.adicionarExame(exame1);
-        fila.adicionarExame(exame2);
+        // fila.adicionarExame(exame2);
         fila.adicionarExame(exame3);
-        fila.adicionarExame(exame4);
+        // fila.adicionarExame(exame4);
 
         fila.mostrarFila();
 

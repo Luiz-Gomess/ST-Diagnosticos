@@ -3,6 +3,7 @@ package com.edu.ifpb.pps.exames.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.edu.ifpb.pps.enums.Prioridade;
 import com.edu.ifpb.pps.exames.Exame;
 import com.edu.ifpb.pps.exames.composite.ItemSanguineo;
 import com.edu.ifpb.pps.laudos.VisitorFormatter;
@@ -19,13 +20,15 @@ public class Sanguineo extends Exame{
     private List<ItemSanguineo> itensSanguineos = new ArrayList<>();
     
     public Sanguineo(
+        Double valor,
         Paciente paciente, 
         Medico medicoSolicitante, 
         Medico medicoLaudista, 
         String localColeta,
-        String convenio) {
+        String convenio, 
+        Prioridade prioridade) {
 
-        super(paciente, medicoSolicitante, medicoLaudista, localColeta, convenio);
+        super(valor, paciente, medicoSolicitante, medicoLaudista, localColeta, convenio, prioridade);
     }
     
     public void adicionarItem(ItemSanguineo item) {

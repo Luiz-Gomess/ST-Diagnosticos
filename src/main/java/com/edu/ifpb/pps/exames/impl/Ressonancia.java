@@ -24,6 +24,7 @@ public class Ressonancia extends Exame {
     private boolean assinaturaRadiologista;
 
     public Ressonancia(
+        Double valor,
         Paciente paciente, 
         Medico medicoSolicitante, 
         Medico medicoLaudista, 
@@ -33,9 +34,10 @@ public class Ressonancia extends Exame {
         String descricao, 
         Double contrasteUsado, 
         List<String> caminhoImagens, 
-        boolean possuiImplantes, Prioridade prioridade, 
-        boolean assinaturaRadiologista) {
-        super(paciente, medicoSolicitante, medicoLaudista, localColeta, convenio, prioridade);
+        boolean assinaturaRadiologista,
+        boolean possuiImplantes, Prioridade prioridade
+        ) {
+        super(valor, paciente, medicoSolicitante, medicoLaudista, localColeta, convenio, prioridade);
         this.regiaoCorpo = regiaoCorpo;
         this.descricao = descricao;
         this.contrasteUsado = contrasteUsado;

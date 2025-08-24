@@ -16,6 +16,7 @@ import lombok.Data;
 public abstract class Exame {
 
     private Integer id;
+    private Double valor;
     private Paciente paciente;
     private Medico medicoSolicitante;
     private Medico medicoLaudista;
@@ -27,8 +28,9 @@ public abstract class Exame {
 
     public Exame() {}
 
-    public Exame(Paciente paciente, Medico medicoSolicitante, Medico medicoLaudista, String localColeta, String convenio, Prioridade prioridade) {
+    public Exame(Double valor, Paciente paciente, Medico medicoSolicitante, Medico medicoLaudista, String localColeta, String convenio, Prioridade prioridade) {
         this.id = IdGenerator.getInstance().getNextId();
+        this.valor = valor;
         this.paciente = paciente;
         this.medicoSolicitante = medicoSolicitante;
         this.medicoLaudista = medicoLaudista;

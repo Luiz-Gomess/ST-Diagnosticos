@@ -13,8 +13,8 @@ public class RaioX extends Exame{
     private String caminhoImagem;
     private boolean assinaturaRadiologista;
 
-    public RaioX(Paciente paciente, Medico medicoSolicitante, Medico medicoLaudista, String localColeta,String convenio, String orgaoAvaliado, String laudoDescritivo, String caminho, Prioridade prioridade) {
-        super(paciente, medicoSolicitante, medicoLaudista, localColeta, convenio, prioridade);
+    public RaioX(Double valor,Paciente paciente, Medico medicoSolicitante, Medico medicoLaudista, String localColeta,String convenio, String orgaoAvaliado, String laudoDescritivo, String caminho, boolean assinaturaRadiologista, Prioridade prioridade) {
+        super(valor, paciente, medicoSolicitante, medicoLaudista, localColeta, convenio, prioridade);
         this.orgaoAvaliado = orgaoAvaliado;
         this.laudoDescritivo = laudoDescritivo;
         this.caminhoImagem = caminho;
