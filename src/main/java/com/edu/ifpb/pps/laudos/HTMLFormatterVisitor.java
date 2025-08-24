@@ -59,6 +59,7 @@ public class HTMLFormatterVisitor extends VisitorFormatter {
         }
     }
 
+    
     @Override
     public void gerarLaudo(Sanguineo sanguineo) {
         Context context = new Context();
@@ -79,6 +80,7 @@ public class HTMLFormatterVisitor extends VisitorFormatter {
         System.out.println("aui 3");
         this.createHTML(Path.of(PASTA_DESTINO + "laudo_sanguineo.html"), conteudo);
     }
+
 
     @Override
     public void gerarLaudo(Ressonancia ressonancia) {
@@ -129,33 +131,75 @@ public class HTMLFormatterVisitor extends VisitorFormatter {
         ), false, true);
 
         HTMLFormatterVisitor visitor = new HTMLFormatterVisitor();
-        ressonancia.gerarLaudo(visitor);
+        // ressonancia.gerarLaudo(visitor);
         // ressonancia.gerarLaudo(new TXTFormatterVisitor());
         // ressonancia.gerarLaudo(new PDFFormatterVisitor());
 
         // Exame raiox = new RaioX(paciente, solicitante, laudista, "Bancários", "Roseane Doris", "PULMÃO", "Raio X do pulmão", "/home/luiz/pps/projeto/src/main/resources/imagens/banana.jpg", true);
         Exame raiox = new RaioX(paciente, solicitante, laudista, "Bancários", "Roseane Doris", "PULMÃO", "Raio X do pulmão", "./src/main/resources/imagens/maca.jpg", true);
-        raiox.gerarLaudo(visitor);
+        // raiox.gerarLaudo(visitor);
         // raiox.gerarLaudo(new TXTFormatterVisitor());
 
         // raiox.gerarLaudo(new PDFFormatterVisitor());
 
         Sanguineo sanguineo = new Sanguineo(paciente, solicitante, laudista, "TAMBAÚ", "UNIMED");
 
+        Indicador glicose = new Indicador("glicose", "83", "mg/DL",List.of(
+            "Normal: 60 a 99 ",
+            "Hipoglicemia: < 60",
+            "Intolerante: 100 a 125",
+            "Diabetes: Acima de 125"
+        ), List.of(
+            "-"
+        )
+        
+        );
+
+        // Indicador creatinina = new Indicador("creatinina", "1,02", "mg/DL", List.of(
+        //     """
+        // Adultos (Homens): 0,50 a 1,30
+        // Adultos (Mulheres): 0,40 a 1,10
+        // Idosos (>60 anos): 0,30 a 1,20
+        // Crianças: 0,20 a 0,50"""
+        // ));
+        Indicador creatinina = new Indicador("creatinina", "1,02", "mg/DL", List.of(
+            "Adultos (Homens): 0,50 a 1,30",
+            "Adultos (Mulheres): 0,40 a 1,10",
+            "Idosos (>60 anos): 0,30 a 1,20",
+            "Crianças: 0,20 a 0,50"
+        ), 
+            List.of(
+                "vH  > 1.5 (alerta)",
+                "vM - > 1,2 (alerta)",
+                "vIdoso > 1.5 (risco elevado)" ,
+                "vCrianças > 0,8  (investigar)"                              
+            )
+        );
+
+        GrupoIndicadores hemografia = new GrupoIndicadores("hemografia");
+        hemografia.adicionar(creatinina);
+        hemografia.adicionar(glicose);
+
+        
+        sanguineo.adicionarItem(hemografia);
+        // sanguineo.gerarLaudo(visitor);
+        // sanguineo.gerarLaudo(new TXTFormatterVisitor());
+        sanguineo.gerarLaudo(new PDFFormatterVisitor());
+
         // 2. Criar os grupos e itens (a estrutura composite)
-        GrupoIndicadores eritrograma = new GrupoIndicadores("ERITROGRAMA");
-        eritrograma.adicionar(new Indicador("Hemácias", "4.400", "milhões/mm³", "4.1 - 5.1"));
-        eritrograma.adicionar(new Indicador("Hemoglobina", "12.0", "g/dL", "11.5 - 14.5"));
-        eritrograma.adicionar(new Indicador("Hematócrito", "35.8", "%", "33 - 41"));
+        // GrupoIndicadores eritrograma = new GrupoIndicadores("ERITROGRAMA");
+        // eritrograma.adicionar(new Indicador("Hemácias", "4.400", "milhões/mm³", "4.1 - 5.1"));
+        // eritrograma.adicionar(new Indicador("Hemoglobina", "12.0", "g/dL", "11.5 - 14.5"));
+        // eritrograma.adicionar(new Indicador("Hematócrito", "35.8", "%", "33 - 41"));
 
-        GrupoIndicadores leucograma = new GrupoIndicadores("LEUCOGRAMA");
-        leucograma.adicionar(new Indicador("Leucócitos", "6.500", "/mm³", "4.000 - 11.000"));
+        // GrupoIndicadores leucograma = new GrupoIndicadores("LEUCOGRAMA");
+        // leucograma.adicionar(new Indicador("Leucócitos", "6.500", "/mm³", "4.000 - 11.000"));
 
-        // 3. Adicionar os grupos ao sanguineo
-        sanguineo.adicionarItem(eritrograma);
-        sanguineo.adicionarItem(leucograma);
+        // // 3. Adicionar os grupos ao sanguineo
+        // sanguineo.adicionarItem(eritrograma);
+        // sanguineo.adicionarItem(leucograma);
 
-        sanguineo.gerarLaudo(visitor);
+        // sanguineo.gerarLaudo(visitor);
 
 
     }

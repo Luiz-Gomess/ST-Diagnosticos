@@ -10,9 +10,11 @@ import com.edu.ifpb.pps.models.Medico;
 import com.edu.ifpb.pps.models.Paciente;
 import com.edu.ifpb.pps.utils.IdGenerator;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public abstract class Exame {
 
     private Integer id;

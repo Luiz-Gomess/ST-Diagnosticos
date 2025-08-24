@@ -18,20 +18,22 @@
                 <th>Resultado</th>
                 <th>Unidade</th>
                 <th>Valores de Referência</th>
+                <th>Valores Críticos</th>
             </tr>
         </thead>
         <tbody>
             <th:block th:each="item : ${itensSanguineos}">
                 
                 <tr th:if="${item.getClass() == GrupoResultados}" class="table-secondary">
-                    <td colspan="4" class="font-weight-bold" th:text="${item.nome}">NOME DO GRUPO</td>
+                    <td colspan="5" class="font-weight-bold" th:text="${item.nome}">NOME DO GRUPO</td>
                 </tr>
                 
                 <tr th:if="${item.getClass() == GrupoResultados}" th:each="subItem : ${item.getItens()}">
                    <td th:text="${subItem.nome}">Nome do Exame</td>
                    <td class="font-weight-bold" th:text="${subItem.valor}">Valor</td>
                    <td th:text="${subItem.unidade}">Unidade</td>
-                   <td th:text="${subItem.valorReferencia}">Referência</td>
+                   <td th:utext="${subItem.valoresReferenciaFormatados()}">Referência</td>
+                   <td th:utext="${subItem.valoresCriticosFormatados()}">Crítico</td>
                 </tr>
 
             </th:block>
