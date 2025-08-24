@@ -42,13 +42,16 @@ public class FilaExames {
         }
     }
 
+    public boolean estaVazia() {
+        return fila.isEmpty();
+    }
+
     // Retira o próximo exame da fila
     public Exame proximoExame() {
         return fila.poll();
     }
 
     public void mostrarFila() {
-        System.out.println("Fila de Exames:");
         fila.forEach(System.out::println);
     }
 }
