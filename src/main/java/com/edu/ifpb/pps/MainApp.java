@@ -6,124 +6,78 @@ import com.edu.ifpb.pps.enums.Prioridade;
 import com.edu.ifpb.pps.exames.Exame;
 import com.edu.ifpb.pps.exames.composite.GrupoIndicadores;
 import com.edu.ifpb.pps.exames.composite.Indicador;
-import com.edu.ifpb.pps.exames.impl.RaioX;
-import com.edu.ifpb.pps.exames.impl.Ressonancia;
-import com.edu.ifpb.pps.facade.SistemaDiagnosticosFacade;
-import com.edu.ifpb.pps.laudos.HTMLFormatterVisitor;
 import com.edu.ifpb.pps.laudos.PDFFormatterVisitor;
-import com.edu.ifpb.pps.laudos.TXTFormatterVisitor;
 import com.edu.ifpb.pps.models.Medico;
 import com.edu.ifpb.pps.models.Paciente;
+import com.edu.ifpb.pps.sistema.SistemaDiagnosticosFacade;
 
 public class MainApp {
     public static void main(String[] args) {
-        SistemaDiagnosticosFacade facade = new SistemaDiagnosticosFacade();
-
-        // -----------------------------
-        // Carregar dados
-        // -----------------------------
-        List<Paciente> pacientes = facade.carregarPacientes("src/main/resources/data/pacientes.csv");
-        List<Medico> medicos = facade.carregarMedicos("src/main/resources/data/medicos.csv");
-
-        Paciente p1 = pacientes.get(3);
-        Paciente p2 = pacientes.get(1);
-        Medico mSolicitante = medicos.get(0);
-        Medico mResponsavel = medicos.get(1);
-
-        // -----------------------------
-        // Criar exames
-        // -----------------------------
-        // Exame sanguíneo simples
-        Exame exameSangue = facade.criarExameSanguineo(
-            120.0, p1, mSolicitante, mResponsavel,
-            "Jaguaribe", "UNIMED", Prioridade.ROTINA, null
-        );
-
-        // Exame sanguíneo com indicadores (Composite)
-        GrupoIndicadores eritrograma = new GrupoIndicadores("ERITROGRAMA");
-        eritrograma.adicionar(new Indicador(
-            "Hemácias",
-            "4.400",
-            "milhões/mm³",
-            java.util.List.of("4.1 - 5.1"),
-            java.util.List.of("4.400")
-        ));
-        eritrograma.adicionar(new Indicador(
-            "Hemoglobina",
-            "12.0",
-            "g/dL",
-            java.util.List.of("11.5 - 14.5"),
-            java.util.List.of("12.0")
-        ));
-        eritrograma.adicionar(new Indicador(
-            "Hematócrito",
-            "35.8",
-            "%",
-            java.util.List.of("33 - 41"),
-            java.util.List.of("35.8")
-        ));
-
-        GrupoIndicadores leucograma = new GrupoIndicadores("LEUCOGRAMA");
-        leucograma.adicionar(new Indicador(
-            "Leucócitos",
-            "6.500",
-            "/mm³",
-            java.util.List.of("4.000 - 11.000"),
-            java.util.List.of("6.500")
-        ));
+        System.out.println("====== INICIANDO SISTEMA DE DIAGNÓSTICOS ======");
         
-        Exame exameSangue2 = facade.criarExameSanguineo(
-            180.0, p2, mSolicitante, mResponsavel,
-            "Bancários", "HAPVIDA", Prioridade.URGENTE, List.of(eritrograma, leucograma)
-        );
+        // 1. Instancia a fachada, que inicializa todos os subsistemas.
+        SistemaDiagnosticosFacade sistema = new SistemaDiagnosticosFacade();
 
-        // Exame de Raio-X
-        Exame exameRaioX = facade.criarExameRaioX(
-            300.0, p2, mSolicitante, mResponsavel,
-            "Jaguaribe", "UNIMED", "Tórax", "Raio-X do tórax",
-            "imagem1.jpg", true, Prioridade.POUCO_URGENTE
-        );
+        // --- PREPARAÇÃO DO CENÁRIO (CARREGAMENTO DE DADOS) ---
+        System.out.println("\n--- 1. Carregando Dados Iniciais ---");
+        // Supondo que os arquivos 'pacientes.csv' e 'medicos.csv' existam em um caminho acessível
+        List<Paciente> pacientes = sistema.carregarPacientes("./src/main/resources/data/pacientes.csv");
+        List<Medico> medicos = sistema.carregarMedicos("./src/main/resources/data/medicos.csv");
+        
+        // Verificação simples se os dados foram carregados
+        if (pacientes.isEmpty() || medicos.size() < 2) {
+            System.err.println("Erro: Não foi possível carregar pacientes ou médicos. Verifique os arquivos CSV.");
+            return;
+        }
+        
+        Paciente pacienteExemplo = pacientes.get(3);
+        Medico medicoSolicitante = medicos.get(0);
+        Medico medicoLaudista = medicos.get(1);
 
-        // Exame de Ressonância
-        Exame exameRessonancia = facade.criarExameRessonancia(
-            800.0, p1, mSolicitante, mResponsavel,
-            "Jaguaribe", "UNIMED", "Crânio", "Ressonância do crânio",
-            2.0, List.of(), 
-            true, false, Prioridade.URGENTE
-        );
+        // --- CRIAÇÃO DOS EXAMES ---
+        System.out.println("\n--- 2. Criando e Enfileirando Exames ---");
+        
+        // Criando um exame de Raio-X com prioridade de ROTINA
+        Exame raioX = sistema.criarExameRaioX(250.0, pacienteExemplo, medicoSolicitante, medicoLaudista,
+                "Unidade Centro", "UNIMED", "Tórax", "Sinais de pneumonia leve.",
+                "./src/main/resources/imagens/raio-x-torax.jpg", true, Prioridade.ROTINA);
+        
+        // Criando um exame Sanguíneo (URGENTE)
+        GrupoIndicadores hemograma = new GrupoIndicadores("Hemograma");
+        hemograma.adicionar(new Indicador("Glicose", "130", "mg/DL", List.of("Normal: 60 a 99"), List.of("Diabetes: Acima de 125")));
+        sistema.criarExameSanguineo(150.0, pacienteExemplo, medicoSolicitante, medicoLaudista,
+                "Posto de Coleta Principal", "Particular", Prioridade.URGENTE, List.of(hemograma));
+                
+        // Criando um exame de Ressonância (POUCO URGENTE)
+        Exame ressonancia = sistema.criarExameRessonancia(800.0, pacienteExemplo, medicoSolicitante, medicoLaudista,
+                "Hospital Metropolitano", "SULAMERICA", "RM do Crânio", "Nenhuma anomalia encontrada.",
+                0.0, List.of("./src/main/resources/imagens/ressonancia-cranio.jpg"), true, false, Prioridade.POUCO_URGENTE);
 
-        // -----------------------------
-        // Adicionar exames à fila
-        // -----------------------------
-        facade.adicionarExameFilaPrioridade(exameSangue);
-        facade.adicionarExameFilaPrioridade(exameSangue2);
-        facade.adicionarExameFilaPrioridade(exameRaioX);
-        facade.adicionarExameFilaPrioridade(exameRessonancia);
 
-        facade.listarExamesFilaPrioridade();
+        // --- GERENCIAMENTO DA FILA ---
+        System.out.println("\n--- 3. Verificando a Fila de Prioridade ---");
+        sistema.listarExamesFilaPrioridade();
 
-        // -----------------------------
-        // Validar exames
-        // -----------------------------
-        System.out.println(facade.validarExame((RaioX) exameRaioX));
-        System.out.println(facade.validarExame((Ressonancia) exameRessonancia));
+        // --- VALIDAÇÃO E CÁLCULO FINANCEIRO ---
+        System.out.println("\n--- 4. Validando e Calculando Preço de um Exame Específico (Ressonância) ---");
+        String resultadoValidacao = sistema.validarExame(ressonancia);
+        System.out.println("Resultado da Validação: " + resultadoValidacao);
 
-        // -----------------------------
-        // Gerar laudos
-        // -----------------------------
-        facade.gerarLaudo(exameSangue, new TXTFormatterVisitor());
-        facade.gerarLaudo(exameSangue2, new HTMLFormatterVisitor());
-        facade.gerarLaudo(exameRessonancia, new PDFFormatterVisitor());
+        sistema.calcularPrecoExame(ressonancia);
 
-        // -----------------------------
-        // Calcular preços
-        // -----------------------------
-        facade.calcularPrecoExame(exameSangue);
-        facade.calcularPrecoExame(exameRessonancia);
-
-        // -----------------------------
-        // Notificações -> Ver como vai pegar o caminho do laudo gerado
-        // -----------------------------
-        facade.notificarPaciente(p1, "src\\main\\resources\\templates\\laudos_criados\\pdf\\laudo_ressonancia.pdf");
+        // --- PROCESSAMENTO DE LAUDO ---
+        System.out.println("\n--- 5. Gerando Laudo do Próximo Exame da Fila ---");
+        // O próximo exame deve ser o Sanguíneo, pois é URGENTE
+        // Usando o Visitor para gerar em PDF
+        sistema.gerarLaudo(new PDFFormatterVisitor());
+        
+        // --- NOTIFICAÇÃO AO PACIENTE ---
+        System.out.println("\n--- 6. Notificando Paciente Sobre o Laudo Gerado ---");
+        // Caminho do arquivo de laudo gerado (exemplo)
+        String caminhoDoLaudoGerado = "./src/main/resources/templates/laudos_criados/pdf/laudo_sanguineo.pdf";
+        List<String> canais = List.of("email", "telegram", "sistema");
+        sistema.notificarPaciente(pacienteExemplo, caminhoDoLaudoGerado, canais);
+        
+        System.out.println("\n====== SISTEMA FINALIZADO ======");
     }
 }
