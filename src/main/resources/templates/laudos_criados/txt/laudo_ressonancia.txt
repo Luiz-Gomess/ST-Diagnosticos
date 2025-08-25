@@ -1,0 +1,27 @@
+======================================================================
+                             RESSONANCIA
+======================================================================
+
+Paciente:                 Luiz Fernando
+Dr(a):                    João da Silva
+Coleta:                   TAMBAÚ
+Convênio:                 UNIMED
+D.N.:                     08/06/2005
+----------------------------------------------------------------------
+ÓRGÃO AVALIADO: JOELHO
+----------------------------------------------------------------------
+LAUDO DESCRITIVO:
+Ressonância no joelho
+
+Contraste: 
+3.0 ml
+
+IMAGENS DE REFERÊNCIA (caminhos):
+- /home/luiz/pps/projeto/src/main/resources/imagens/banana.jpg
+- /home/luiz/pps/projeto/src/main/resources/imagens/maca.jpg
+
+----------------------------------------------------------------------
+Gerado em: 23/08/2025
+Dr(a): João Laudista
+CRM: 12345
+----------------------------------------------------------------------
