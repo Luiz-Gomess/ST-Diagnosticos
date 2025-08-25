@@ -6,7 +6,9 @@ import com.edu.ifpb.pps.enums.Prioridade;
 import com.edu.ifpb.pps.exames.Exame;
 import com.edu.ifpb.pps.exames.composite.GrupoIndicadores;
 import com.edu.ifpb.pps.exames.composite.Indicador;
+import com.edu.ifpb.pps.laudos.HTMLFormatterVisitor;
 import com.edu.ifpb.pps.laudos.PDFFormatterVisitor;
+import com.edu.ifpb.pps.laudos.TXTFormatterVisitor;
 import com.edu.ifpb.pps.models.Medico;
 import com.edu.ifpb.pps.models.Paciente;
 import com.edu.ifpb.pps.relatoriosObserver.EstatisticaLaudosObserver;
@@ -41,7 +43,7 @@ public class MainApp {
         // Criando um exame de Raio-X com prioridade de ROTINA
         Exame raioX = sistema.criarExameRaioX(250.0, pacienteExemplo, medicoSolicitante, medicoLaudista,
                 "Unidade Centro", "UNIMED", "Tórax", "Sinais de pneumonia leve.",
-                "./src/main/resources/imagens/raio-x-torax.jpg", true, Prioridade.ROTINA);
+                "src\\main\\resources\\imagens\\img1.jpg", true, Prioridade.ROTINA);
         
         // Criando um exame Sanguíneo (URGENTE)
         GrupoIndicadores hemograma = new GrupoIndicadores("Hemograma");
@@ -52,7 +54,7 @@ public class MainApp {
         // Criando um exame de Ressonância (POUCO URGENTE)
         Exame ressonancia = sistema.criarExameRessonancia(800.0, pacienteExemplo, medicoSolicitante, medicoLaudista,
                 "Hospital Metropolitano", "UNIMED", "RM do Crânio", "Nenhuma anomalia encontrada.",
-                0.0, List.of("./src/main/resources/imagens/ressonancia-cranio.jpg"), true, false, Prioridade.POUCO_URGENTE);
+                0.0, List.of("src\\main\\resources\\imagens\\img1.jpg"), true, false, Prioridade.POUCO_URGENTE);
 
 
         // --- GERENCIAMENTO DA FILA ---
@@ -75,7 +77,13 @@ public class MainApp {
         sistema.addicionarObserver(observer);
 
         sistema.gerarLaudo(new PDFFormatterVisitor());
-        
+        sistema.gerarLaudo(new PDFFormatterVisitor());
+        sistema.gerarLaudo(new TXTFormatterVisitor());
+
+        sistema.gerarLaudo(raioX, new HTMLFormatterVisitor());
+
+        observer.gerarRelatorio();
+
         // --- NOTIFICAÇÃO AO PACIENTE ---
         System.out.println("\n--- 6. Notificando Paciente Sobre o Laudo Gerado ---");
         // Caminho do arquivo de laudo gerado (exemplo)
