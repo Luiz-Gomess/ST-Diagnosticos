@@ -23,8 +23,10 @@ public class ServicoNotificacao {
         }
         if (canais.contains("email")) {
             notificador = new NotificadorEmail(notificador);
+            System.out.println("Enviando por email...");
         }
         if (canais.contains("telegram")) {
+            System.out.println("Enviando por telegram...");
             String chatId = Configuracoes.getTelegramChatId();
             notificador = new NotificadorTelegram(notificador, chatId);
         }
