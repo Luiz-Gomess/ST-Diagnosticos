@@ -1,4 +1,6 @@
 com\edu\ifpb\pps\services\ServicoNotificacao.class
 com\edu\ifpb\pps\services\ServicoFinanceiro.class
 com\edu\ifpb\pps\sistema\SistemaDiagnosticosFacade.class
+com\edu\ifpb\pps\relatoriosObserver\LaudoObserver.class
+com\edu\ifpb\pps\relatoriosObserver\EstatisticaLaudosObserver.class
 com\edu\ifpb\pps\services\ServicoExame.class

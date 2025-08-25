@@ -9,6 +9,7 @@ import com.edu.ifpb.pps.exames.composite.Indicador;
 import com.edu.ifpb.pps.laudos.PDFFormatterVisitor;
 import com.edu.ifpb.pps.models.Medico;
 import com.edu.ifpb.pps.models.Paciente;
+import com.edu.ifpb.pps.relatoriosObserver.EstatisticaLaudosObserver;
 import com.edu.ifpb.pps.sistema.SistemaDiagnosticosFacade;
 
 public class MainApp {
@@ -50,7 +51,7 @@ public class MainApp {
                 
         // Criando um exame de Ressonância (POUCO URGENTE)
         Exame ressonancia = sistema.criarExameRessonancia(800.0, pacienteExemplo, medicoSolicitante, medicoLaudista,
-                "Hospital Metropolitano", "SULAMERICA", "RM do Crânio", "Nenhuma anomalia encontrada.",
+                "Hospital Metropolitano", "UNIMED", "RM do Crânio", "Nenhuma anomalia encontrada.",
                 0.0, List.of("./src/main/resources/imagens/ressonancia-cranio.jpg"), true, false, Prioridade.POUCO_URGENTE);
 
 
@@ -69,13 +70,17 @@ public class MainApp {
         System.out.println("\n--- 5. Gerando Laudo do Próximo Exame da Fila ---");
         // O próximo exame deve ser o Sanguíneo, pois é URGENTE
         // Usando o Visitor para gerar em PDF
+
+        EstatisticaLaudosObserver observer = new EstatisticaLaudosObserver();
+        sistema.addicionarObserver(observer);
+
         sistema.gerarLaudo(new PDFFormatterVisitor());
         
         // --- NOTIFICAÇÃO AO PACIENTE ---
         System.out.println("\n--- 6. Notificando Paciente Sobre o Laudo Gerado ---");
         // Caminho do arquivo de laudo gerado (exemplo)
         String caminhoDoLaudoGerado = "./src/main/resources/templates/laudos_criados/pdf/laudo_sanguineo.pdf";
-        List<String> canais = List.of("email", "telegram", "sistema");
+        List<String> canais = List.of("email", "sistema");
         sistema.notificarPaciente(pacienteExemplo, caminhoDoLaudoGerado, canais);
         
         System.out.println("\n====== SISTEMA FINALIZADO ======");

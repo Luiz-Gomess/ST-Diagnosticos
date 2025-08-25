@@ -29,6 +29,8 @@ C:\Users\lucas\OneDrive\Área de Trabalho\Faculdade\P5\Padrões de Projeto\ST-Di
 C:\Users\lucas\OneDrive\Área de Trabalho\Faculdade\P5\Padrões de Projeto\ST-Diagnosticos\src\main\java\com\edu\ifpb\pps\notificacoes\NotificadorEmail.java
 C:\Users\lucas\OneDrive\Área de Trabalho\Faculdade\P5\Padrões de Projeto\ST-Diagnosticos\src\main\java\com\edu\ifpb\pps\notificacoes\NotificadorSistema.java
 C:\Users\lucas\OneDrive\Área de Trabalho\Faculdade\P5\Padrões de Projeto\ST-Diagnosticos\src\main\java\com\edu\ifpb\pps\notificacoes\NotificadorTelegram.java
+C:\Users\lucas\OneDrive\Área de Trabalho\Faculdade\P5\Padrões de Projeto\ST-Diagnosticos\src\main\java\com\edu\ifpb\pps\relatoriosObserver\EstatisticaLaudosObserver.java
+C:\Users\lucas\OneDrive\Área de Trabalho\Faculdade\P5\Padrões de Projeto\ST-Diagnosticos\src\main\java\com\edu\ifpb\pps\relatoriosObserver\LaudoObserver.java
 C:\Users\lucas\OneDrive\Área de Trabalho\Faculdade\P5\Padrões de Projeto\ST-Diagnosticos\src\main\java\com\edu\ifpb\pps\services\ServicoExame.java
 C:\Users\lucas\OneDrive\Área de Trabalho\Faculdade\P5\Padrões de Projeto\ST-Diagnosticos\src\main\java\com\edu\ifpb\pps\services\ServicoFinanceiro.java
 C:\Users\lucas\OneDrive\Área de Trabalho\Faculdade\P5\Padrões de Projeto\ST-Diagnosticos\src\main\java\com\edu\ifpb\pps\services\ServicoNotificacao.java
