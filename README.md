@@ -87,3 +87,18 @@ O diagrama a seguir representa a arquitetura completa da solução, orquestrada 
 | **`FilaExames`** | Gerencia a fila de exames com base nas regras de prioridade.                                                    | -                                                          |
 | **`EstatisticaLaudosObserver`** | Observar quando novos laudos são emitidos para gerar relatórios                                   | Observer                                                     |
 | **`MainApp`** | Classe que simula a aplicação                                   | - |
+
+### ⚙️ Configuração e Execução
+
+Para executar o projeto e utilizar as funcionalidades de notificação (Email e Telegram), é necessário configurar as variáveis de ambiente.
+
+1.  Crie um arquivo chamado `.env` na raiz do seu projeto.
+2.  Copie e cole a seguinte estrutura no arquivo, substituindo pelos seus próprios valores quando necessário:
+
+```dotenv
+TELEGRAM_BOT_TOKEN = 
+LUIZ_CHAT_ID = 
+REMETENTE_EMAIL = 
+REMETENTE_SENHA =
+```
+Execute o arquivo **`MainApp.java`**
