@@ -17,7 +17,7 @@ public class ServicoFinanceiro {
 
     public Double calcularPrecoExame(Exame exame) {
         System.out.println("Calculando preço do exame...");
-        double preco = exame.getValor() * (this.descontoIdosos.aplicarDesconto(exame));
+        double preco = exame.getValor() * (1 - this.descontoIdosos.aplicarDesconto(exame));
         return preco;
     }
 }
