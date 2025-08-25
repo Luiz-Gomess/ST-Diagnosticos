@@ -52,6 +52,16 @@ public class FilaExames {
     }
 
     public void mostrarFila() {
-        fila.forEach(System.out::println);
+        for (Exame exame : fila) {
+            String nomeExame = exame.getClass().getSimpleName(); // RaioX, Sanguineo, Ressonancia
+            String prioridade = exame.getPrioridade().name();
+            String nomePaciente = exame.getPaciente().getNome();
+
+            System.out.println(
+                "Exame: " + nomeExame +
+                " | Prioridade: " + prioridade +
+                " | Paciente: " + nomePaciente
+            );
+        }
     }
 }
