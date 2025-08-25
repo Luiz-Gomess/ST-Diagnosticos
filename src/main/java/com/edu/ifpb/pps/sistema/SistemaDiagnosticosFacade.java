@@ -11,6 +11,7 @@ import com.edu.ifpb.pps.loadData.impl.MedicoMappingStrategy;
 import com.edu.ifpb.pps.loadData.impl.PacienteMappingStrategy;
 import com.edu.ifpb.pps.models.Medico;
 import com.edu.ifpb.pps.models.Paciente;
+import com.edu.ifpb.pps.relatoriosObserver.LaudoObserver;
 import com.edu.ifpb.pps.services.ServicoExame;
 import com.edu.ifpb.pps.services.ServicoFinanceiro;
 import com.edu.ifpb.pps.services.ServicoNotificacao;
@@ -93,6 +94,14 @@ public class SistemaDiagnosticosFacade {
 
     public void gerarLaudo(Exame exame, VisitorFormatter formatter) {
         servicoExame.gerarLaudo(exame, formatter);
+    }
+
+    public void addicionarObserver(LaudoObserver observer) {
+        this.servicoExame.addObserver(observer);
+    }
+
+    public void removerObserver(LaudoObserver observer) {
+        this.servicoExame.removeObserver(observer);
     }
 
     // -----------------------------
